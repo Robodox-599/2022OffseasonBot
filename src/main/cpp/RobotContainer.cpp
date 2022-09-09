@@ -7,6 +7,12 @@
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
 
+  m_Drive.SetDefaultCommand( command_SwerveDriveTeleop(&m_Drive,
+                                                       [this]{return XboxDrive.GetRawAxis(ControllerConstants::xboxLXAxis);},
+                                                       [this]{return XboxDrive.GetRawAxis(ControllerConstants::xboxLYAxis);},
+                                                       [this]{return XboxDrive.GetRawAxis(ControllerConstants::xboxRXAxis);},
+                                                       [this]{return SwerveConstants::IsFieldRelative;},
+                                                       [this]{return SwerveConstants::IsOpenLoop;}));
   // Configure the button bindings
   ConfigureButtonBindings();
 }
