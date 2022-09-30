@@ -6,26 +6,28 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-
-#include "subsystems/ExampleSubsystem.h"
+#include "subsystems/subsystem_Indexer.h"
 
 /**
- * An example command that uses an example subsystem.
+ * An example command.
  *
  * <p>Note that this extends CommandHelper, rather extending CommandBase
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ExampleCommand
-    : public frc2::CommandHelper<frc2::CommandBase, ExampleCommand> {
- public:
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  explicit ExampleCommand(ExampleSubsystem* subsystem);
+class command_Manual: 
+  public frc2::CommandHelper<frc2::CommandBase, command_Manual> {
+    public:
+      command_Manual(subsystem_Indexer* indexer, std::function<int()> direction);
 
- private:
-  ExampleSubsystem* m_subsystem;
+      void Initialize() override;
+
+      void Execute() override;
+
+      void End(bool interrupted) override;
+
+      bool IsFinished() override;
+    private:
+      subsystem_Indexer* m_indexer;
+      std::function<int()> m_direction;
 };
