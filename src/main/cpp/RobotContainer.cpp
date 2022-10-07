@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "RobotContainer.h"
+#include "Constants.h"
 
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
   // Initialize all of your commands and subsystems here
@@ -13,6 +14,12 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
+  frc2::JoystickButton xboxA(&xbox, ControllerConstants::xboxA);
+  frc2::JoystickButton xboxB(&xbox, ControllerConstants::xboxB);
+
+  xboxA.WhenPressed(command_RightClimbByPositionExtend(&m_Climb));
+  xboxB.WhenPressed(cGroup_ClimbTraversal(&m_Climb));
+
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

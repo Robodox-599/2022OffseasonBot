@@ -6,10 +6,15 @@
 
 #include <frc2/command/Command.h>
 #include "commands/ExampleCommand.h"
+#include "commands/cGroup_MidRung.h"
+#include "commands/cGroup_HighRung.h"
+#include "commands/cGroup_TraversalRung.h"
+#include "commands/cGroup_ClimbTraversal.h"
 #include "commands/command_LeftClimbByPositionRetract.h"
 #include "commands/command_LeftClimbByPositionExtend.h"
 #include "commands/command_RightClimbByPositionRetract.h"
 #include "commands/command_RightClimbByPositionExtend.h"
+
 #include "subsystems/subsystem_Climb.h"
 #include "subsystems/ExampleSubsystem.h"
 
@@ -38,7 +43,5 @@ class RobotContainer {
   subsystem_Climb m_Climb; 
 
   frc::XboxController xbox{ControllerConstants::xboxPort};
-  frc::Joystick atk3{ControllerConstants::joystickPort};
-
   void ConfigureButtonBindings();
 };

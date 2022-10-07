@@ -6,10 +6,13 @@
 
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/SequentialCommandGroup.h>
+#include "commands/command_RightClimbByPositionExtend.h"
+#include "commands/command_RightClimbByPositionRetract.h"
+#include "subsystems/subsystem_Climb.h"
 
 class cGroup_TraversalRung
     : public frc2::CommandHelper<frc2::SequentialCommandGroup,
                                  cGroup_TraversalRung> {
  public:
-  cGroup_TraversalRung();
+  cGroup_TraversalRung(subsystem_Climb *Climb, int ticks);
 };

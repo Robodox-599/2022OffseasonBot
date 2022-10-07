@@ -6,10 +6,13 @@
 
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/SequentialCommandGroup.h>
+#include "commands/command_LeftClimbByPositionExtend.h"
+#include "commands/command_RightClimbByPositionRetract.h"
+#include "subsystems/subsystem_Climb.h"
 
 class cGroup_MidRung
     : public frc2::CommandHelper<frc2::SequentialCommandGroup,
                                  cGroup_MidRung> {
  public:
-  cGroup_MidRung();
+  cGroup_MidRung(subsystem_Climb *Climb, int ticks);
 };

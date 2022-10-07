@@ -28,33 +28,7 @@ namespace ClimbConstants
 
 namespace ControllerConstants
 {
-      constexpr int xboxPort = 0;
-    constexpr int joystickPort = 1;
-
-    constexpr int xboxLXAxis = 0;
-    constexpr int xboxLYAxis = 1;
-    constexpr int xboxRXAxis = 4;
-    constexpr int xboxRYAxis = 5;
-
-    constexpr int xboxLTAxis = 2;
-    constexpr int xboxRTAxis = 3;
-
+    constexpr int xboxPort = 0;
     constexpr int xboxA = 1;
     constexpr int xboxB = 2;
-    constexpr int xboxX = 3;
-    constexpr int xboxY = 4;
-    constexpr int xboxLB = 5;
-    constexpr int xboxRB = 6;
-    constexpr int xboxView = 7;
-    constexpr int xboxMenu = 8;
-    constexpr int xboxLeftJoyPress = 9;
-    constexpr int xboxRightJoyPress = 10;
-    constexpr int xboxRightDPad = 11;
-
-    constexpr int atk3WinchLock = 6;
-    constexpr int atk3WinchUnlock = 7;
-    constexpr int atk3WinchUp = 11;
-    constexpr int atk3WinchDown = 10;
-    constexpr int atk3WinchUpTest = 3;
-    constexpr int atk3WinchDownTest = 2;
 }

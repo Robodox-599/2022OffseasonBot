@@ -7,8 +7,9 @@
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-cGroup_HighRung::cGroup_HighRung() {
+cGroup_HighRung::cGroup_HighRung(subsystem_Climb *Climb, 
+                                 int ticks) {
   // Add your commands here, e.g.
   // AddCommands(FooCommand(), BarCommand());
-  AddCommands()
+  AddCommands(command_LeftClimbByPositionRetract(Climb));
 }
