@@ -12,6 +12,8 @@ cGroup_ClimbTraversal::cGroup_ClimbTraversal(subsystem_Climb *Climb,
   // Add your commands here, e.g.
   // AddCommands(FooCommand(), BarCommand());
   AddCommands(cGroup_MidRung(Climb,ticks),
+              command_Timer(),
               cGroup_HighRung(Climb,ticks),
+              command_Timer(),
               cGroup_TraversalRung(Climb,ticks));
 }
