@@ -11,7 +11,7 @@ command_RightClimbByPositionRetract::command_RightClimbByPositionRetract(subsyst
 
 // Called when the command is initially scheduled.
 void command_RightClimbByPositionRetract::Initialize() {
-  m_Climb->RetractRightClimb(ClimbConstants::RightClimbTicksDown);
+  m_Climb->SetRightClimbArmPosition(ClimbConstants::RightClimbTicksDown);
 }
 
 // Called repeatedly when this Command is scheduled to run

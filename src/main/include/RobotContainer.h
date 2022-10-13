@@ -8,7 +8,6 @@
 #include "commands/ExampleCommand.h"
 #include "commands/cGroup_MidRung.h"
 #include "commands/cGroup_HighRung.h"
-#include "commands/cGroup_TraversalRung.h"
 #include "commands/cGroup_ClimbTraversal.h"
 #include "commands/command_LeftClimbByPositionRetract.h"
 #include "commands/command_LeftClimbByPositionExtend.h"

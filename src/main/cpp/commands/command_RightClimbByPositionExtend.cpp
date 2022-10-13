@@ -11,7 +11,7 @@ command_RightClimbByPositionExtend::command_RightClimbByPositionExtend(subsystem
 
 // Called when the command is initially scheduled.
 void command_RightClimbByPositionExtend::Initialize() {
-  m_Climb->ExtendRightClimb(ClimbConstants::RightClimbTicksUp);
+  m_Climb->SetRightClimbArmPosition(ClimbConstants::RightClimbTicksUp);
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -7,6 +7,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/subsystem_Climb.h"
+#include "Constants.h"
 
 /**
  * An example command.
@@ -28,5 +29,6 @@ class command_LeftClimbByPositionExtend
 
   bool IsFinished() override;
 
+  private:
   subsystem_Climb* m_Climb;
 };

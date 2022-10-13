@@ -9,48 +9,71 @@ m_leftWinchMotor{0,rev::CANSparkMax::MotorType::kBrushless},
 m_rightWinchMotor{0,rev::CANSparkMax::MotorType::kBrushless},
 m_leftClimbEncoder{m_leftWinchMotor.GetEncoder()},
 m_rightClimbEncoder{m_rightWinchMotor.GetEncoder()},
-m_ClimbPidController(m_leftWinchMotor.GetPIDController())
+m_leftPidController(m_leftWinchMotor.GetPIDController()),
+m_rightPidController(m_rightWinchMotor.GetPIDController())
+
 {
+double kP = 0, kI = 0, kD = 0, kIz = 0, kFF = 0, kMaxOutput = 1, kMinOutput = -1;
   //leftWinchMotor
-  
+  m_leftClimbEncoder.SetPosition(0);
+  m_leftPidController.SetP(kP);
+  m_leftPidController.SetI(kI);
+  m_leftPidController.SetD(kD);
+  m_leftPidController.SetIZone(kIz);
+  m_leftPidController.SetFF(kFF);
+  m_leftPidController.SetOutputRange(kMinOutput, kMaxOutput);
+
   //rightWinchMotor
+  m_rightClimbEncoder.SetPosition(0);
+  m_rightPidController.SetP(kP);
+  m_rightPidController.SetI(kI);
+  m_rightPidController.SetD(kD);
+  m_rightPidController.SetIZone(kIz);
+  m_rightPidController.SetFF(kFF);
+  m_rightPidController.SetOutputRange(kMinOutput, kMaxOutput);
 } 
 
-/*Climb methods:
-1. always start with setExtendForClimb() to prepare
-
-2. use setClimbMidBar when only climbing to second rung
-
-3. use this sequence for traveral climb steps
-   - setClimbMidBarAndExtend() to climb mid rung with right climb and extend left climb
-   - setClimbHighBarAndExtend() to climb high rung with left climb and extend right arm
-   - setClimbTraversalBar() to climb partial distance with right climb on traversal bar
-*/
-
-//extending right arm to start Climb
-void subsystem_Climb::ExtendRightClimb(int ticks)
+void subsystem_Climb::SetRightClimbArmPosition(int ticks)
 {
-  m_rightWinchMotor;
+  m_rightPidController.SetReference(ticks, rev::ControlType::kPosition, 0);
+
 }
 
- 
-void subsystem_Climb::RetractRightClimb(int ticks)
+void subsystem_Climb::SetLeftClimbArmPosition(int ticks)
 {
-  m_rightWinchMotor;
+  m_leftPidController.SetReference(ticks, rev::ControlType::kPosition, 0);
+
 }
 
-void subsystem_Climb::ExtendLeftClimb(int ticks)
+double subsystem_Climb::GetClimbArmCurrent()
 {
-  m_leftWinchMotor;
+  return m_rightWinchMotor.GetOutputCurrent();
+  return m_leftWinchMotor.GetOutputCurrent();
 }
 
-//Traversal second step
-void subsystem_Climb::RetractLeftClimb(int ticks)
+void subsystem_Climb::SetClimbArmSpeedForHoming()
 {
-  m_leftWinchMotor;
+  m_leftWinchMotor.Set(0.2);
+  m_rightWinchMotor.Set(0.2);
 }
 
+void subsystem_Climb::SetClimbArmSpeedtoZero()
+{
+  m_leftWinchMotor.Set(0);
+  m_rightWinchMotor.Set(0);
+}
 
 
 // This method will be called once per scheduler run
-void subsystem_Climb::Periodic() {}
+
+void subsystem_Climb::Periodic() {
+frc::SmartDashboard::PutNumber("Left Encoder Position", m_leftClimbEncoder.GetPosition());
+frc::SmartDashboard::PutNumber("Right Encoder Position", m_rightClimbEncoder.GetPosition());
+/*frc::SmartDashboard::PutNumber("P Gain", kP);
+frc::SmartDashboard::PutNumber("I Gain", kI);
+frc::SmartDashboard::PutNumber("D Gain", kD);
+frc::SmartDashboard::PutNumber("I Zone", kIz);
+frc::SmartDashboard::PutNumber("Feed Forward", kFF);
+frc::SmartDashboard::PutNumber("Max Output", kMaxOutput);
+frc::SmartDashboard::PutNumber("Min Output", kMinOutput);*/
+}

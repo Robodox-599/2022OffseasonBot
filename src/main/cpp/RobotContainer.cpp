@@ -19,7 +19,6 @@ void RobotContainer::ConfigureButtonBindings() {
 
   xboxA.WhenPressed(command_RightClimbByPositionExtend(&m_Climb));
   xboxB.WhenPressed(cGroup_ClimbTraversal(&m_Climb));
-
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

@@ -6,6 +6,8 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include "subsystems/subsystem_Climb.h"
+#include "Constants.h"
 
 /**
  * An example command.
@@ -14,10 +16,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class command_Timer
-    : public frc2::CommandHelper<frc2::CommandBase, command_Timer> {
+class command_ClimbMotorsHoming
+    : public frc2::CommandHelper<frc2::CommandBase, command_ClimbMotorsHoming> {
  public:
-  command_Timer();
+  command_ClimbMotorsHoming(subsystem_Climb *Climb);
 
   void Initialize() override;
 
@@ -26,4 +28,7 @@ class command_Timer
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+  private:
+  subsystem_Climb* m_Climb;
 };
