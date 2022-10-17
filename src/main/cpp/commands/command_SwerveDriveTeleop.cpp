@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "commands/command_SwerveDriveTeleop.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
 command_SwerveDriveTeleop::command_SwerveDriveTeleop(subsystem_SwerveDrive* SwerveDrive,
                                                       std::function<double()> xSpeed,
@@ -25,6 +26,9 @@ void command_SwerveDriveTeleop::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void command_SwerveDriveTeleop::Execute() {
+  frc::SmartDashboard::SmartDashboard::PutNumber("x_Speed", m_xSpeed());
+  frc::SmartDashboard::SmartDashboard::PutNumber("y_Speed", m_ySpeed());
+  frc::SmartDashboard::SmartDashboard::PutNumber("z_rotation", m_zRotation());
   m_SwerveDrive -> SwerveDrive( -frc::ApplyDeadband(m_xSpeed(), 0.08)* SwerveConstants::MaxSpeed,
                                 -frc::ApplyDeadband(m_ySpeed(), 0.08) * SwerveConstants::MaxSpeed,
                                 -frc::ApplyDeadband(m_zRotation(), 0.08) * SwerveConstants::MaxAngularVelocity,

@@ -35,6 +35,7 @@ class subsystem_SwerveDrive : public frc2::SubsystemBase {
   void ZeroGyro();
   void ResetOdometry(frc::Pose2d Pose);
   frc::Pose2d GetPose();
+  frc::Rotation2d GetYaw();
 
 
   /**

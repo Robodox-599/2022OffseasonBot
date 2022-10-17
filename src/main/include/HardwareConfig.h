@@ -34,9 +34,9 @@ class HardwareConfig{
 
         /*Swerve Angle Motor Config*/
         ctre::phoenix::motorcontrol::SupplyCurrentLimitConfiguration AngleSupplyLimit{SwerveConstants::AngleEnableCurrentLimit,
-                                                                                      SwerveConstants::DriveContinuousCurrentLimit,
-                                                                                      SwerveConstants::DrivePeakCurrentLimit,
-                                                                                      SwerveConstants::DrivePeakCurrentDuration};
+                                                                                      SwerveConstants::AngleContinuousCurrentLimit,
+                                                                                      SwerveConstants::AnglePeakCurrentLimit,
+                                                                                      SwerveConstants::AnglePeakCurrentDuration};
         SwerveAngleFXConfig.slot0.kP = SwerveConstants::AngleKP;
         SwerveAngleFXConfig.slot0.kI = SwerveConstants::AngleKI;
         SwerveAngleFXConfig.slot0.kD = SwerveConstants::AngleKD;

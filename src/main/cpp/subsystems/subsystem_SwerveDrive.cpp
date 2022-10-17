@@ -1,9 +1,11 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
 
 #include "subsystems/subsystem_SwerveDrive.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
 
 
@@ -27,10 +29,21 @@ void subsystem_SwerveDrive::SwerveDrive(units::meters_per_second_t xSpeed,
                                         bool IsOpenLoop){
     auto moduleStates = SwerveConstants::m_kinematics.ToSwerveModuleStates(
         FieldRelative ? frc::ChassisSpeeds::FromFieldRelativeSpeeds(
-                            xSpeed, ySpeed, zRot, m_Gyro.GetRotation2d() 
+                            xSpeed, ySpeed, zRot, GetYaw()
                         ): frc::ChassisSpeeds{xSpeed, ySpeed, zRot});
     SwerveConstants::m_kinematics.DesaturateWheelSpeeds(&moduleStates, SwerveConstants::MaxSpeed);
     auto [FrontLeft, FrontRight, BackLeft, BackRight] = moduleStates;
+    frc::SmartDashboard::SmartDashboard::PutNumber("Front Left Angle", FrontLeft.angle.Degrees().value() );
+    frc::SmartDashboard::SmartDashboard::PutNumber("Front Left Drive", FrontLeft.speed.value() );    
+
+    frc::SmartDashboard::SmartDashboard::PutNumber("Front Right Angle", FrontRight.angle.Degrees().value() );
+    frc::SmartDashboard::SmartDashboard::PutNumber("Front Right Drive", FrontRight.speed.value() );
+    
+    frc::SmartDashboard::SmartDashboard::PutNumber("Back Left Angle", BackLeft.angle.Degrees().value() );
+    frc::SmartDashboard::SmartDashboard::PutNumber("Back Left Drive", BackLeft.speed.value() );
+
+    frc::SmartDashboard::SmartDashboard::PutNumber("Back Right Angle", BackRight.angle.Degrees().value() );
+    frc::SmartDashboard::SmartDashboard::PutNumber("Back Right Drive", BackRight.speed.value() );
 
     m_FrontLeftModule.SetDesiredState(FrontLeft, IsOpenLoop);
     m_FrontRightModule.SetDesiredState(FrontRight, IsOpenLoop);
@@ -55,6 +68,12 @@ void subsystem_SwerveDrive::ResetOdometry(frc::Pose2d Pose){
 
 frc::Pose2d subsystem_SwerveDrive::GetPose(){
     return m_Odometry.GetPose();
+}
+
+frc::Rotation2d subsystem_SwerveDrive::GetYaw(){
+    
+    units::degree_t Yaw{ m_Gyro.GetYaw() };
+    return (SwerveConstants::InvertGyro) ? frc::Rotation2d{360_deg - Yaw}: frc::Rotation2d{Yaw}; 
 }
 
 

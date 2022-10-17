@@ -18,16 +18,15 @@ class SwerveModule {
         frc::SwerveModuleState Optimize(frc::SwerveModuleState DesiredState, frc::Rotation2d CurrentAngle);
         frc::SwerveModuleState GetState();
      
-        units::degree_t FalconToDegrees(double Counts, double GearRatio);
-        double DegreesToFalcon(units::degree_t Degrees, double GearRatio);
-        double FalconToRPM(double VelocityCounts, double GearRatio);
-        double RPMToFalcon(double RPM, double GearRatio);
-        units::meters_per_second_t FalconToMPS(double Velocitycounts, units::meter_t Circumference, double GearRatio);
-        double MPSToFalcon(units::meters_per_second_t Velocity, units::meter_t Circumference, double GearRatio);
+        units::degree_t FalconToDegrees(double Counts);
+        double DegreesToFalcon(units::degree_t Degrees);
+        double FalconToRPM(double VelocityCounts);
+        double RPMToFalcon(double RPM);
+        units::meters_per_second_t FalconToMPS(double Velocitycounts);
+        double MPSToFalcon(units::meters_per_second_t Velocity);
 
     private:
         void resetToAbsolute();
-        units::degree_t PlaceInAppropriate0To360Scope(units::degree_t ScopeReference, units::degree_t NewAngle);
         
         units::degree_t m_LastAngle;
         ctre::phoenix::motorcontrol::can::WPI_TalonFX m_DriveMotor;

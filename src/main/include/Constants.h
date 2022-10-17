@@ -53,7 +53,8 @@ namespace ControllerConstants{
 }
 
 namespace SwerveConstants{
-    constexpr int CANCoderID = 0; 
+    constexpr int CANCoderID = 12; 
+    constexpr int InvertGyro = true;
 
     /*Drivetrain constants*/
     constexpr double OpenLoopRamp = 0.25;
@@ -62,17 +63,18 @@ namespace SwerveConstants{
     constexpr double DriveGearRatio = 6.75;
     constexpr double AngleGearRatio = 150.0 / 7.0;
 
-    constexpr units::meter_t WheelCircumference{ 4.0_in };
+    
+    constexpr units::meter_t WheelCircumference{ 4.0_in * M_PI  };
 
     const frc::Translation2d m_FrontLeft{-14.0_in, 14.0_in};
-    const frc::Translation2d m_FrontRight{14.0_in, -14.0_in};
+    const frc::Translation2d m_FrontRight{14.0_in, 14.0_in};
     const frc::Translation2d m_BackLeft{-14.0_in, -14.0_in};
     const frc::Translation2d m_BackRight{14.0_in, -14.0_in};
 
     const frc::SwerveDriveKinematics<4> m_kinematics{m_FrontLeft,
                                                m_FrontRight,
                                                m_BackLeft,
-                                               m_BackLeft,};
+                                               m_BackRight};
 
 
 
@@ -114,7 +116,7 @@ namespace SwerveConstants{
 
     
     /*Swerve Drive Motor PID gains*/
-    constexpr double DriveKP = 0.1;
+    constexpr double DriveKP = 0.01;
     constexpr double DriveKI = 0.0;
     constexpr double DriveKD = 0.0;
     constexpr double DriveKF = 0.0;
@@ -130,12 +132,13 @@ namespace SwerveConstants{
     constexpr bool AngleMotorInvert = false;
     constexpr bool DriveMotorInvert = false;
 
-    /* Swerve Profiling Values */
-    constexpr units::meters_per_second_t MaxSpeed{4.5};
-    constexpr units::degrees_per_second_t MaxAngularVelocity{11.5};
 
-    constexpr bool IsFieldRelative = true;
-    constexpr bool IsOpenLoop = false;  
+    /* Swerve Profiling Values */
+    constexpr units::meters_per_second_t MaxSpeed{1};
+    constexpr units::degrees_per_second_t MaxAngularVelocity{4};
+
+    constexpr bool IsFieldRelative = false;
+    constexpr bool IsOpenLoop = true;  
 }
 
 
@@ -143,7 +146,7 @@ namespace FrontLeftModule{
     constexpr int DriveMotorID = 0;
     constexpr int AngleMotorID = 1;
     constexpr int CanCoderID = 2;
-    constexpr double AngleOffset = 0.0;
+    constexpr double AngleOffset = 53.5;
     const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset };
 }
 
@@ -151,21 +154,21 @@ namespace FrontRightModule{
     constexpr int DriveMotorID = 3;
     constexpr int AngleMotorID = 4;
     constexpr int CanCoderID = 5;
-    constexpr double AngleOffset = 0.0;
+    constexpr double AngleOffset = -39.1 ;
     const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset};
 }
 namespace BackLeftModule{
     constexpr int DriveMotorID = 6;
     constexpr int AngleMotorID = 7;
     constexpr int CanCoderID = 8;
-    constexpr auto AngleOffset = 0.0;
-    const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset};
+    constexpr auto AngleOffset = -92.7;
+    constexpr double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset};
 }
 namespace BackRightModule{
     constexpr int DriveMotorID = 9;
     constexpr int AngleMotorID = 10;
     constexpr int CanCoderID = 11;
-    constexpr double AngleOffset = 0.0;
+    constexpr double AngleOffset = 69.7;
     const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset};
 }
 

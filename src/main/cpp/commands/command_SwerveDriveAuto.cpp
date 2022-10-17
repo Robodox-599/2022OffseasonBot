@@ -25,7 +25,7 @@ void command_SwerveDriveAuto::Initialize() {
                                               frc::TrapezoidProfile<units::radians>::Constraints{AutoConstants::MaxAngularSpeed,
                                                                                                  AutoConstants::MaxAngularAccel}};
 
-  ThetaController.EnableContinuousInput(0_rad,  units::radian_t{2* AutoConstants::PI} );
+  ThetaController.EnableContinuousInput(-AutoConstants::PI,  AutoConstants::PI );
 
   frc2::SwerveControllerCommand<4> swerveControllerCommand(m_Trajectory,
                                                             [this]{return m_SwerveDrive->GetPose();}, 
