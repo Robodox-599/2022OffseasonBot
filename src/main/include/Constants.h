@@ -13,26 +13,26 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
-namespace IntakeConstants {
-    constexpr int intakePiston1 = 0;
-    constexpr int intakePiston2 = 1;
-    
-}
 
 namespace IndexerConstants {
-    constexpr int indexerID = 4;
+    constexpr int indexerID = 15;
     constexpr int breakerPort0 = 0;
     constexpr int breakerPort1 = 1;
     constexpr int breakerPort2 = 2;
     constexpr double percentOutput = 0.5;
     constexpr int xboxRightDPad = 11;
+
+    constexpr int xboxA = 1;
+    constexpr int xboxB = 2;
+    constexpr int xboxX = 3;
+    constexpr int xboxY = 4;
 }
 
 namespace ShooterConstants {
 
   const int hoodID = 1;
   const int flywheelID = 2;
-  const int turretID = 3;
+  const int turretID = 0;
 
 
   const  double gravity = -9.806;

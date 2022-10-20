@@ -7,6 +7,7 @@
 #include <wpi/StringExtras.h>
 #include <wpi/SmallVector.h>
 #include <frc/Timer.h>
+#include "frc/smartdashboard/SmartDashboard.h"
 
 using namespace pico;
 

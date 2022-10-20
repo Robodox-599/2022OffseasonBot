@@ -6,7 +6,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/subsystem_Indexer.h"
+#include "subsystems/subsystem_Pico.h"
 
 /**
  * An example command.
@@ -15,19 +15,19 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class command_Emergency: 
-public frc2::CommandHelper<frc2::CommandBase, command_Emergency> {
-  public:
-    command_Emergency(subsystem_Indexer* indexer);
+class command_Pico: 
+  public frc2::CommandHelper<frc2::CommandBase, command_Pico> {
+    public:
+      command_Pico(subsystem_Pico* pico);
 
-    void Initialize() override;
+      void Initialize() override;
 
-    void Execute() override;
+      void Execute() override;
 
-    void End(bool interrupted) override;
+      void End(bool interrupted) override;
 
-    bool IsFinished() override;
-  
-  private:
-    subsystem_Indexer* m_indexer;
+      bool IsFinished() override;
+    
+    private:
+      subsystem_Pico* m_pico;
 };
