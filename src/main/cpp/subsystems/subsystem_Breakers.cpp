@@ -18,9 +18,7 @@ bool subsystem_Breakers::isBeam1Broken(){
     return m_breaker1.Get();
 }
 
-bool subsystem_Breakers::isBeam2Broken(){
-    return m_breaker2.Get();
-}
+bool subsystem_Breakers::isBeam2Broken(){return m_breaker2.Get();}
 
 int subsystem_Breakers::getChannel0(){
     return m_breaker0.GetChannel();
