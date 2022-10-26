@@ -11,7 +11,5 @@ subsystem_Motor::subsystem_Motor(): m_motor{15, rev::CANSparkMaxLowLevel::MotorT
 void subsystem_Motor::Periodic() {}
 
 void subsystem_Motor::setPercentOutput(double percentOutput){
-    frc::SmartDashboard::PutNumber("Unset: ", m_motor.Get());
     m_motor.Set(percentOutput);
-    frc::SmartDashboard::PutNumber("Set: ", m_motor.Get());
 }

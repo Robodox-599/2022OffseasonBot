@@ -8,7 +8,7 @@
 #include "RobotContainer.h"
 #include "Constants.h"
 
-RobotContainer::RobotContainer(): m_picoC{&m_picoS}, m_motorC{&m_motorS, m_direction}, m_direction{}, m_breakersC{&m_breakersS, &m_motorS, &m_picoS} {
+RobotContainer::RobotContainer(): m_maintainState{&m_indexer, m_manual}, m_manual{}  /*, m_picoC{&m_picoS}, m_motorC{&m_motorS, m_direction}, m_direction{}, m_breakersC{&m_breakersS, &m_motorS, &m_picoS} */  {
   // Initialize all of your commands and subsystems here
   // m_maintainState.SetDefaultCommand(command_Manual(&m_indexer, [=]{return 0;}));
   // Configure the button bindings
@@ -25,14 +25,14 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton xboxB(&m_xbox, IndexerConstants::xboxB);
   frc2::JoystickButton xboxX(&m_xbox, IndexerConstants::xboxX);
   frc2::JoystickButton xboxY(&m_xbox, IndexerConstants::xboxY);
-  xboxStart.WhenPressed(command_Pico(&m_picoS));
-  xboxB.WhenPressed(command_Motor(&m_motorS, [=]{return 0;}));
-  xboxPOVDown.WhenPressed(command_Motor(&m_motorS, [=]{return -1;}));
-  xboxPOVUp.WhenPressed(command_Motor(&m_motorS, [=]{return 1;}));
-  xboxA.WhenPressed(command_Breakers(&m_breakersS, &m_motorS, &m_picoS));
+  // xboxStart.WhenPressed(command_Pico(&m_picoS));
+  // xboxB.WhenPressed(command_Motor(&m_motorS, [=]{return 0;}));
+  // xboxPOVDown.WhenPressed(command_Motor(&m_motorS, [=]{return -1;}));
+  // xboxPOVUp.WhenPressed(command_Motor(&m_motorS, [=]{return 1;}));
+  // xboxA.WhenPressed(command_Breakers(&m_breakersS, &m_motorS, &m_picoS));
   // xboxStart.WhenPressed(command_Pico(&m_picoS));
   // xboxPOVDown.WhenHeld(command_Manual(&m_indexer, [=]{return 1;}));
-  // xboxStart.WhenPressed(command_MaintainState(&m_indexer));
+  xboxStart.WhenPressed(command_MaintainState(&m_indexer, [=]{return 1;}));
 
   
   
@@ -40,5 +40,5 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return &m_picoC;
+  return &m_maintainState;
 }
