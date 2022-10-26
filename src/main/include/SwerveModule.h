@@ -17,13 +17,20 @@ class SwerveModule {
         frc::Rotation2d GetCANCoder();
         frc::SwerveModuleState Optimize(frc::SwerveModuleState DesiredState, frc::Rotation2d CurrentAngle);
         frc::SwerveModuleState GetState();
+        void SetDegrees(units::degree_t Degrees);
+
+        
      
         units::degree_t FalconToDegrees(double Counts);
         double DegreesToFalcon(units::degree_t Degrees);
         double FalconToRPM(double VelocityCounts);
         double RPMToFalcon(double RPM);
+        double getTurnCounts();
+        units::degree_t getLastAngle();
+        
         units::meters_per_second_t FalconToMPS(double Velocitycounts);
         double MPSToFalcon(units::meters_per_second_t Velocity);
+        
 
     private:
         void resetToAbsolute();

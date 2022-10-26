@@ -9,6 +9,7 @@
 #include "commands/ExampleCommand.h"
 #include "subsystems/ExampleSubsystem.h"
 
+#include "commands/command_ZeroGyro.h"
 #include "commands/command_SwerveDriveTeleop.h"
 #include "subsystems/subsystem_SwerveDrive.h"
 
@@ -34,10 +35,10 @@ class RobotContainer {
   ExampleSubsystem m_subsystem;
   ExampleCommand m_autonomousCommand;
 
-  subsystem_SwerveDrive m_Drive;
+   subsystem_SwerveDrive m_Drive;
 
   frc::XboxController XboxDrive{ControllerConstants::XboxDriveID};
-  frc::XboxController XboxYaperator{ControllerConstants::XboxYaperatorID};
+  frc::Joystick XboxYaperator{ControllerConstants::XboxYaperatorID};
 
   void ConfigureButtonBindings();
 };

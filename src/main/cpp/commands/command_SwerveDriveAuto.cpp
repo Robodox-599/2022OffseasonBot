@@ -54,14 +54,6 @@ void command_SwerveDriveAuto::End(bool interrupted) {
   m_SwerveDrive -> SwerveDrive(0_mps, 0_mps, 0_rad_per_s, false, false);
 }
 
-
-
-
-
-
-
-
-
 // Returns true when the command should end.
 bool command_SwerveDriveAuto::IsFinished() {
   return false;

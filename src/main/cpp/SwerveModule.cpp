@@ -2,24 +2,27 @@
 #include "frc/smartdashboard/SmartDashboard.h"
 
 SwerveModule::SwerveModule(const double Module[] ):
-                                                 m_DriveMotor{ (int)Module[0]},
-                                                 m_AngleMotor{ (int)Module[1] },
-                                                 m_AngleEncoder{ (int)Module[2] },
-                                                 m_AngleOffset{ Module[3] },
+                                                 m_DriveMotor{ (int)Module[0], "DriveCANivore"},
+                                                 m_AngleMotor{ (int)Module[1], "DriveCANivore" },
+                                                 m_AngleEncoder{ (int)Module[2], "DriveCANivore" },
+                                                 m_AngleOffset{ Module[3], "DriveCANivore" },
                                                  m_Feedforward{SwerveConstants::DriveKS, SwerveConstants::DriveKV, SwerveConstants::DriveKA}
 {
     //Config Angle Encoder
     m_AngleEncoder.ConfigFactoryDefault();
     m_AngleEncoder.ConfigAllSettings(m_Settings.SwerveCanCoderConfig);
-
+    m_AngleEncoder.ConfigMagnetOffset(m_AngleOffset.value());
     //Config Angle Motor
     m_AngleMotor.ConfigFactoryDefault();
     m_AngleMotor.ConfigAllSettings(m_Settings.SwerveAngleFXConfig);
     m_AngleMotor.SetInverted(SwerveConstants::AngleMotorInvert);
     m_AngleMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
-    double absolutePosition = DegreesToFalcon(GetCANCoder().Degrees() - m_AngleOffset);
-    m_AngleMotor.SetSelectedSensorPosition(absolutePosition);
-    frc::SmartDashboard::SmartDashboard::PutNumber( "zerod position",GetCANCoder().Degrees().value() - m_AngleOffset.value());
+     m_AngleMotor.SetSelectedSensorPosition((DegreesToFalcon(0_deg - GetCANCoder().Degrees()) ));
+
+
+
+
+
 
     //Config Drive Motor
     m_DriveMotor.ConfigFactoryDefault();
@@ -32,11 +35,19 @@ SwerveModule::SwerveModule(const double Module[] ):
     m_LastAngle = GetState().angle.Degrees();
 }
 
+void SwerveModule::SetDegrees(units::degree_t Degrees){
+
+    m_AngleMotor.SetSelectedSensorPosition( (DegreesToFalcon(Degrees - GetCANCoder().Degrees()) ));
+
+}
+
+double SwerveModule::getTurnCounts(){
+    return m_AngleMotor.GetSelectedSensorPosition();
+}
 
 
 void SwerveModule::SetDesiredState(frc::SwerveModuleState& DesiredState, bool IsOpenLoop){
     DesiredState = Optimize(DesiredState, GetState().angle);
-    
     if(IsOpenLoop){
         double PercentOutput = DesiredState.speed / SwerveConstants::MaxSpeed;
         m_DriveMotor.Set(PercentOutput);
@@ -45,13 +56,16 @@ void SwerveModule::SetDesiredState(frc::SwerveModuleState& DesiredState, bool Is
         double VoltageFeedForward = m_Feedforward.Calculate(DesiredState.speed)/SwerveConstants::kNominal;
         m_DriveMotor.Set(ctre::phoenix::motorcontrol::ControlMode::Velocity, Velocity, ctre::phoenix::motorcontrol::DemandType_ArbitraryFeedForward, VoltageFeedForward);
     }
-    units::degree_t Angle = DesiredState.angle.Degrees();
-    frc::SmartDashboard::SmartDashboard::PutNumber("DesiredState SPEED", DesiredState.speed.value());
-    frc::SmartDashboard::SmartDashboard::PutNumber("Minimum Speed", (SwerveConstants::MaxSpeed.value() * 0.01));
-    frc::SmartDashboard::SmartDashboard::PutBoolean("I love you <3", abs(DesiredState.speed.value()) < (SwerveConstants::MaxSpeed.value() * 0.01) );
+    units::meters_per_second_t minSpeed = (SwerveConstants::MaxSpeed * 0.01);
+
+    units::degree_t Angle = units::math::abs(DesiredState.speed) <= minSpeed ? m_LastAngle: DesiredState.angle.Degrees();
+
     m_AngleMotor.Set( ctre::phoenix::motorcontrol::ControlMode::Position, DegreesToFalcon(Angle) );
     m_LastAngle = Angle;
+}
 
+units::degree_t SwerveModule::getLastAngle(){
+    return m_LastAngle;
 }
 
 /* This custom optimize method is created because Wpilib assumes the controller is continuous, which the CTRE Talons are not. */
@@ -69,7 +83,7 @@ frc::SwerveModuleState SwerveModule::Optimize(frc::SwerveModuleState DesiredStat
     }else if(Delta <= -270_deg){
         Delta += 360_deg;
     }
-    if( abs(Delta.value()) > 90){
+    if( units::math::abs(Delta) > 90_deg){
         TargetSpeed = - TargetSpeed;
         Delta = Delta > 0_deg ? (Delta -= 180_deg) : ( Delta += 180_deg);
     }

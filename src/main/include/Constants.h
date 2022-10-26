@@ -54,7 +54,7 @@ namespace ControllerConstants{
 
 namespace SwerveConstants{
     constexpr int CANCoderID = 12; 
-    constexpr int InvertGyro = true;
+    constexpr bool InvertGyro = true;
 
     /*Drivetrain constants*/
     constexpr double OpenLoopRamp = 0.25;
@@ -64,12 +64,12 @@ namespace SwerveConstants{
     constexpr double AngleGearRatio = 150.0 / 7.0;
 
     
-    constexpr units::meter_t WheelCircumference{ 4.0_in * M_PI  };
+    constexpr units::meter_t WheelCircumference{ 4.0_in * wpi::numbers::pi  };
 
-    const frc::Translation2d m_FrontLeft{-14.0_in, 14.0_in};
+    const frc::Translation2d m_FrontLeft{14.0_in, -14.0_in};
     const frc::Translation2d m_FrontRight{14.0_in, 14.0_in};
     const frc::Translation2d m_BackLeft{-14.0_in, -14.0_in};
-    const frc::Translation2d m_BackRight{14.0_in, -14.0_in};
+    const frc::Translation2d m_BackRight{-14.0_in, 14.0_in};
 
     const frc::SwerveDriveKinematics<4> m_kinematics{m_FrontLeft,
                                                m_FrontRight,
@@ -80,16 +80,16 @@ namespace SwerveConstants{
 
 
     /*setting up correct units for the simepleMotorFeedforward KS gain*/
-    constexpr units::volt_t DriveKS{1.0};
+    constexpr units::volt_t DriveKS{0.566};
 
-    constexpr units::volt_t VoltageKV{1.0};
+    constexpr units::volt_t VoltageKV{0.678};
     constexpr units::foot_t FeetKV{1.0};
     constexpr units::second_t TimeKV{1.0};
     /*Setting up correct units for the simpleMotorFeedforward KV gain
     Change VoltageKV when wanting to change the KV gain*/
     constexpr auto DriveKV = VoltageKV * TimeKV / FeetKV;
 
-    constexpr units::volt_t VoltageKA{1.0};
+    constexpr units::volt_t VoltageKA{0.039};
     constexpr units::foot_t FeetKA{1.0};
     constexpr units::second_t TimeKA{1.0};
     /*Setting up correct units for the simpleMotorFeedforward KA gain
@@ -133,12 +133,12 @@ namespace SwerveConstants{
     constexpr bool DriveMotorInvert = false;
 
 
-    /* Swerve Profiling Values */
-    constexpr units::meters_per_second_t MaxSpeed{1};
-    constexpr units::degrees_per_second_t MaxAngularVelocity{4};
+    /* Swerve Profiling values */
+    constexpr units::meters_per_second_t MaxSpeed{3};
+    constexpr units::degrees_per_second_t MaxAngularVelocity{360};
 
     constexpr bool IsFieldRelative = false;
-    constexpr bool IsOpenLoop = true;  
+    constexpr bool IsOpenLoop = false;  
 }
 
 
@@ -146,7 +146,7 @@ namespace FrontLeftModule{
     constexpr int DriveMotorID = 0;
     constexpr int AngleMotorID = 1;
     constexpr int CanCoderID = 2;
-    constexpr double AngleOffset = 53.5;
+    constexpr double AngleOffset = -54.3;
     const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset };
 }
 
@@ -154,26 +154,27 @@ namespace FrontRightModule{
     constexpr int DriveMotorID = 3;
     constexpr int AngleMotorID = 4;
     constexpr int CanCoderID = 5;
-    constexpr double AngleOffset = -39.1 ;
+    constexpr double AngleOffset = 38.6 ;
+
     const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset};
 }
 namespace BackLeftModule{
     constexpr int DriveMotorID = 6;
     constexpr int AngleMotorID = 7;
     constexpr int CanCoderID = 8;
-    constexpr auto AngleOffset = -92.7;
+    constexpr auto AngleOffset = 93.6;
     constexpr double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset};
 }
 namespace BackRightModule{
     constexpr int DriveMotorID = 9;
     constexpr int AngleMotorID = 10;
     constexpr int CanCoderID = 11;
-    constexpr double AngleOffset = 69.7;
+    constexpr double AngleOffset = -70.2;
     const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset};
 }
 
 namespace AutoConstants{
-    constexpr units::radian_t PI {M_PI};
+    constexpr units::radian_t PI {wpi::numbers::pi};
     constexpr units::meters_per_second_t MaxSpeed{ 0 };
     constexpr units::meters_per_second_squared_t MaxAccel{ 0 };
     constexpr units::radians_per_second_t MaxAngularSpeed{ 0 };

@@ -29,11 +29,14 @@ void command_SwerveDriveTeleop::Execute() {
   frc::SmartDashboard::SmartDashboard::PutNumber("x_Speed", m_xSpeed());
   frc::SmartDashboard::SmartDashboard::PutNumber("y_Speed", m_ySpeed());
   frc::SmartDashboard::SmartDashboard::PutNumber("z_rotation", m_zRotation());
-  m_SwerveDrive -> SwerveDrive( -frc::ApplyDeadband(m_xSpeed(), 0.08)* SwerveConstants::MaxSpeed,
-                                -frc::ApplyDeadband(m_ySpeed(), 0.08) * SwerveConstants::MaxSpeed,
-                                -frc::ApplyDeadband(m_zRotation(), 0.08) * SwerveConstants::MaxAngularVelocity,
+  m_SwerveDrive -> SwerveDrive( -frc::ApplyDeadband(m_xSpeed(), 0.1)* SwerveConstants::MaxSpeed,
+                                frc::ApplyDeadband(m_ySpeed(), 0.1) * SwerveConstants::MaxSpeed,
+                                frc::ApplyDeadband(m_zRotation(), 0.1) * SwerveConstants::MaxAngularVelocity,
                                 m_FieldRelative(),
                                 m_OpenLoop());
+
+  
+  
 }
 
 // Called once the command ends or is interrupted.

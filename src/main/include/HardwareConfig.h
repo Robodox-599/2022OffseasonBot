@@ -18,6 +18,7 @@ class HardwareConfig{
         SwerveCanCoderConfig.sensorTimeBase = ctre::phoenix::sensors::SensorTimeBase::PerSecond;
 
         /*Swerve Drive Motor Config*/
+        
         ctre::phoenix::motorcontrol::SupplyCurrentLimitConfiguration DriveSupplyLimit{SwerveConstants::DriveEnableCurrentLimit,
                                                                                       SwerveConstants::DriveContinuousCurrentLimit,
                                                                                       SwerveConstants::DrivePeakCurrentLimit,

@@ -33,6 +33,13 @@ void subsystem_SwerveDrive::SwerveDrive(units::meters_per_second_t xSpeed,
                         ): frc::ChassisSpeeds{xSpeed, ySpeed, zRot});
     SwerveConstants::m_kinematics.DesaturateWheelSpeeds(&moduleStates, SwerveConstants::MaxSpeed);
     auto [FrontLeft, FrontRight, BackLeft, BackRight] = moduleStates;
+    //auto [FrontRight, RearRight,]
+
+     m_FrontLeftModule.SetDesiredState(FrontLeft, IsOpenLoop);
+    m_FrontRightModule.SetDesiredState(FrontRight, IsOpenLoop);
+     m_BackLeftModule.SetDesiredState(BackLeft, IsOpenLoop);
+    m_BackRightModule.SetDesiredState(BackRight, IsOpenLoop);
+
     frc::SmartDashboard::SmartDashboard::PutNumber("Front Left Angle", FrontLeft.angle.Degrees().value() );
     frc::SmartDashboard::SmartDashboard::PutNumber("Front Left Drive", FrontLeft.speed.value() );    
 
@@ -44,12 +51,6 @@ void subsystem_SwerveDrive::SwerveDrive(units::meters_per_second_t xSpeed,
 
     frc::SmartDashboard::SmartDashboard::PutNumber("Back Right Angle", BackRight.angle.Degrees().value() );
     frc::SmartDashboard::SmartDashboard::PutNumber("Back Right Drive", BackRight.speed.value() );
-
-    m_FrontLeftModule.SetDesiredState(FrontLeft, IsOpenLoop);
-    m_FrontRightModule.SetDesiredState(FrontRight, IsOpenLoop);
-    m_BackLeftModule.SetDesiredState(BackLeft, IsOpenLoop);
-    m_BackRightModule.SetDesiredState(BackRight, IsOpenLoop);
-
 }
 
 void subsystem_SwerveDrive::SetModuleStates(wpi::array<frc::SwerveModuleState, 4> desiredStates){
@@ -86,6 +87,9 @@ void subsystem_SwerveDrive::ZeroGyro(){
 
 // This method will be called once per scheduler run
 void subsystem_SwerveDrive::Periodic() {
+
+
+
     m_Odometry.Update(m_Gyro.GetRotation2d(),
                       m_FrontLeftModule.GetState(),
                       m_FrontRightModule.GetState(),

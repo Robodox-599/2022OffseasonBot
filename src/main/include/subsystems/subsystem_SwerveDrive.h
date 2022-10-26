@@ -29,6 +29,10 @@ class subsystem_SwerveDrive : public frc2::SubsystemBase {
                    units::radians_per_second_t zRot,
                    bool FieldRelative, 
                    bool IsOpenLoop);
+  void SwerveDrive(frc::Translation2d Translation, 
+                  units::degrees_per_second_t Rotation,
+                  bool FieldRelative, 
+                  bool IsOpenLoop  );
   void SetModuleStates(wpi::array<frc::SwerveModuleState, 4> desiredStates);
 
   
