@@ -6,13 +6,13 @@
 
 #include <frc2/command/Command.h>
 #include <frc2/command/CommandScheduler.h>
-#include "commands/command_MaintainState.h"
+// #include "commands/command_MaintainState.h"
 // #include "commands/command_Manual.h"
 #include "commands/command_Pico.h"
 #include "commands/command_Motor.h"
 #include "commands/command_Breakers.h"
 #include <frc/GenericHID.h>
-#include "subsystems/subsystem_Indexer.h"
+// #include "subsystems/subsystem_Indexer.h"
 #include "frc/XboxController.h"
 #include "frc2/command/button/JoystickButton.h"
 #include <frc/Joystick.h>
@@ -34,18 +34,24 @@ class RobotContainer {
 
  private:
   // The robot's subsystems and commands are defined here...
-  subsystem_Indexer m_indexer;
-  command_MaintainState m_maintainState;
-  std::function<int()> m_manual;
+  // subsystem_Indexer m_indexer;
+  // command_MaintainState m_maintainState;
+  // std::function<int()> m_manual;
   // command_Manual m_manual;
-  // std::function<int()> m_direction;
+  
+  command_Pico m_picoC;
+  subsystem_Pico m_picoS;
+  
+  command_Motor m_motorC;
+  subsystem_Motor m_motorS;
+  std::function<int()> m_direction;
+  
+  command_Breakers m_breakersC;
+  subsystem_Breakers m_breakersS;
+
   frc::XboxController m_xbox{0};
-  // command_Pico m_picoC;
-  // subsystem_Pico m_picoS;
-  // command_Motor m_motorC;
-  // subsystem_Motor m_motorS;
-  // command_Breakers m_breakersC;
-  // subsystem_Breakers m_breakersS;
+  
+  
   // frc2::Command::Command;
   // frc::GenericHID m_hid{3};
   

@@ -45,12 +45,20 @@ uint32_t subsystem_Pico::getProximity2(){
     return m_colorSensor.GetProximity2();
 }
 
-bool subsystem_Pico::isRed(){
+bool subsystem_Pico::isRed0(){
+    return getColor0().red > getColor0().blue;
+}
+
+bool subsystem_Pico::isBlue0(){
+    return getColor0().red < getColor0().blue;
+}
+
+bool subsystem_Pico::isRed2(){
     return getColor2().red > getColor2().blue;
 }
 
-bool subsystem_Pico::isBlue(){
-    return getColor0().red < getColor0().blue;
+bool subsystem_Pico::isBlue2(){
+    return getColor2().red < getColor2().blue;
 }
 
 void subsystem_Pico::print(){

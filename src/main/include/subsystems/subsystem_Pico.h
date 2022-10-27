@@ -25,8 +25,10 @@ class subsystem_Pico:
       uint32_t getProximity0();
       uint32_t getProximity2();
       void print();
-      bool isRed();
-      bool isBlue();
+      bool isRed0();
+      bool isBlue0();
+      bool isRed2();
+      bool isBlue2();
 
       private:
       // Components (e.g. motor controllers and sensors) should generally be
