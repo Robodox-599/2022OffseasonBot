@@ -22,5 +22,5 @@ void command_LeftClimbByPositionExtend::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool command_LeftClimbByPositionExtend::IsFinished() {
-  return false;
+  return true;
 }

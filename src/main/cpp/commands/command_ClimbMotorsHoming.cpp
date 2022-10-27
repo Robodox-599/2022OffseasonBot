@@ -11,13 +11,16 @@ command_ClimbMotorsHoming::command_ClimbMotorsHoming(subsystem_Climb *Climb): m_
 
 // Called when the command is initially scheduled.
 void command_ClimbMotorsHoming::Initialize() {
-m_Climb->SetClimbArmSpeedForHoming();
+m_Climb->SetClimbArmForHoming();
 }
+
 // Called repeatedly when this Command is scheduled to run
 void command_ClimbMotorsHoming::Execute(){
-  if(m_Climb->GetClimbArmCurrent() >= ClimbConstants::ClimbCurrentSpike){
-    m_Climb->SetClimbArmSpeedtoZero(); 
-  }
+  if(m_Climb->GetRightClimbArmCurrent() >= ClimbConstants::ClimbCurrentSpike){
+    m_Climb->SetClimbArmSpeedtoZero();}
+  
+  if(m_Climb->GetLeftClimbArmCurrent() >= ClimbConstants::ClimbCurrentSpike){
+    m_Climb->SetClimbArmSpeedtoZero();}
 }
 
 // Called once the command ends or is interrupted.
@@ -25,5 +28,5 @@ void command_ClimbMotorsHoming::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool command_ClimbMotorsHoming::IsFinished() {
-  return false;
+  return true;
 }

@@ -22,5 +22,5 @@ void command_LeftClimbByPositionRetract::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool command_LeftClimbByPositionRetract::IsFinished() {
-  return false;
+  return true;
 }

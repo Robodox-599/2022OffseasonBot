@@ -19,19 +19,38 @@ namespace ClimbConstants
     //Will Replace this when I find out which ports the Climb Will be
     constexpr int leftWinchMotorPort = 0;
     constexpr int rightWinchMotorPort = 0;
+    constexpr int pigeon = 0;
 
 //Climb Current
     //Need to test what the ClimbCurrentSpike would be
     constexpr int ClimbCurrentSpike = 0;
+    constexpr int HomingPercentOutput = 0;
+    constexpr bool RightWinchMotor = true;
+    constexpr bool LeftWinchMotor = false;
 
-//Climb Distance Measurements
+//Climb Measurements
     //Have to test what value the ticks need to 
     //be for the climb arm to be at the very top and bottom
     constexpr int LeftClimbTicksUp = 0;
     constexpr int LeftClimbTicksDown = 0;
+    constexpr int LeftClimbPartialTicks = 0; 
     constexpr int RightClimbTicksUp = 0; 
     constexpr int RightClimbTicksDown = 0; 
+    constexpr int RightClimbPartialTicks = 0; 
     constexpr int RightPartialClimbTicks = 0;
+    constexpr int kHighBarExtendAngle = 0;
+    constexpr int kHighBarContactAngle = 0;
+    constexpr int kTraversalBarExtendAngle = 0;
+    constexpr int kTraversalBarContactAngle = 0;
+
+//Climb PID Constants
+    constexpr int kP = 0;
+    constexpr int kI = 0;
+    constexpr int kD = 0; 
+    constexpr int kIz = 0;
+    constexpr int kFF = 0;
+    constexpr int kMaxOutput = 1;
+    constexpr int kMinOutput = -1;
 }
 
 namespace ControllerConstants

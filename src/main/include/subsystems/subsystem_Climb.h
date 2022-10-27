@@ -7,6 +7,7 @@
 #include <frc2/command/SubsystemBase.h>
 #include <frc/SmartDashboard/SmartDashboard.h>
 #include "rev/CANSparkMax.h"
+#include "ctre/Phoenix.h"
 #include "Constants.h"
 
 class subsystem_Climb : public frc2::SubsystemBase {
@@ -14,14 +15,15 @@ class subsystem_Climb : public frc2::SubsystemBase {
   subsystem_Climb();
   void SetRightClimbArmPosition(int ticks);
   void SetLeftClimbArmPosition(int ticks);
+  double GetRightClimbArmPosition();
+  double GetLeftClimbArmPosition();
   void HomingClimbArmSpeed();
   void SetClimbArmSpeedtoZero();
-  void SetClimbArmSpeedForHoming();
-  double GetClimbArmCurrent();
+  void SetClimbArmForHoming();
+  double GetRightClimbArmCurrent();
+  double GetLeftClimbArmCurrent();
+  //double GetRoll();
 
-  /*int GetRightClimbArmPosition();
-  int GetLeftClimbArmPosition();*/
-  
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -34,6 +36,7 @@ class subsystem_Climb : public frc2::SubsystemBase {
  rev::SparkMaxRelativeEncoder m_rightClimbEncoder;
  rev::SparkMaxPIDController m_rightPidController; 
  rev::SparkMaxPIDController m_leftPidController;
+//ctre::phoenix::sensors::WPI_Pigeon2 m_pidgey; 
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
