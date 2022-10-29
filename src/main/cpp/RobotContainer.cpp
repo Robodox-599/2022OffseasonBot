@@ -8,7 +8,7 @@
 #include "RobotContainer.h"
 #include "Constants.h"
 
-RobotContainer::RobotContainer(): /*m_maintainState{&m_indexer, m_manual}, m_manual{}*/  m_picoC{&m_picoS}, m_motorC{&m_motorS, m_direction}, m_direction{}, m_breakersC{&m_breakersS, &m_motorS, &m_picoS}  {
+RobotContainer::RobotContainer(): /*m_maintainState{&m_indexer, m_manual}, m_manual{}*/  m_picoC{&m_picoS}, m_motorC{&m_motorS, &m_breakersS, m_direction}, m_direction{}, m_breakersC{&m_breakersS, &m_motorS, &m_picoS}  {
   // Initialize all of your commands and subsystems here
   // m_maintainState.SetDefaultCommand(command_Manual(&m_indexer, [=]{return 0;}));
   // Configure the button bindings
@@ -19,6 +19,7 @@ void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
   frc::SmartDashboard::PutString("configure status: ", "configured");
   frc2::POVButton xboxPOVUp(&m_xbox, 0, 0);
+  frc2::POVButton xboxPOVRight(&m_xbox, 90, 0);
   frc2::POVButton xboxPOVDown(&m_xbox, 180, 0);
   frc2::POVButton xboxPOVLeft(&m_xbox, 270, 0);
   frc2::JoystickButton xboxStart(&m_xbox, 8);
@@ -27,9 +28,10 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton xboxX(&m_xbox, IndexerConstants::xboxX);
   frc2::JoystickButton xboxY(&m_xbox, IndexerConstants::xboxY);
   // xboxStart.WhenPressed(command_Pico(&m_picoS));
-  xboxPOVLeft.WhenPressed(command_Motor(&m_motorS, [=]{return 0;}));
-  xboxPOVDown.WhenPressed(command_Motor(&m_motorS, [=]{return -1;}));
-  xboxPOVUp.WhenPressed(command_Motor(&m_motorS, [=]{return 1;}));
+  xboxPOVLeft.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return 0;}));
+  xboxPOVDown.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return -1;}));
+  xboxPOVUp.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return 1;}));
+  xboxPOVRight.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return 2;}));
   xboxStart.WhenPressed(command_Breakers(&m_breakersS, &m_motorS, &m_picoS));
   // xboxStart.WhenPressed(command_Pico(&m_picoS));
   // xboxPOVDown.WhenHeld(command_Manual(&m_indexer, [=]{return 1;}));

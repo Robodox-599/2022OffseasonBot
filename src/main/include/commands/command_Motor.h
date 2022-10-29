@@ -7,6 +7,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/subsystem_Motor.h"
+#include"subsystems/subsystem_Breakers.h"
 
 /**
  * An example command.
@@ -18,7 +19,7 @@
 class command_Motor: 
   public frc2::CommandHelper<frc2::CommandBase, command_Motor> {
     public:
-      command_Motor(subsystem_Motor* motor, std::function<int()> direction);
+      command_Motor(subsystem_Motor* motor, subsystem_Breakers* breakers, std::function<int()> direction);
 
       void Initialize() override;
 
@@ -30,5 +31,6 @@ class command_Motor:
 
     private:
       subsystem_Motor* m_motor;
+      subsystem_Breakers* m_breakers;
       std::function<int()> m_direction;
 };
