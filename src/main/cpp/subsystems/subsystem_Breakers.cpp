@@ -5,7 +5,7 @@
 #include "subsystems/subsystem_Breakers.h"
 #include "frc/smartdashboard/SmartDashboard.h"
 
-subsystem_Breakers::subsystem_Breakers(): m_breaker0{0}, m_breaker1{2}, m_breaker2{4} {}
+subsystem_Breakers::subsystem_Breakers(): m_breaker0{9}, m_breaker1{2}, m_breaker2{8} {}
 
 // This method will be called once per scheduler run
 void subsystem_Breakers::Periodic() {}

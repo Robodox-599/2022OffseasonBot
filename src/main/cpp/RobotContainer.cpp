@@ -29,9 +29,9 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton xboxY(&m_xbox, IndexerConstants::xboxY);
   // xboxStart.WhenPressed(command_Pico(&m_picoS));
   xboxPOVLeft.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return 0;}));
-  xboxPOVDown.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return -1;}));
-  xboxPOVUp.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return 1;}));
-  xboxPOVRight.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return 2;}));
+  xboxPOVDown.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return 2;}));
+  xboxPOVUp.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return -1;}));
+  // xboxPOVRight.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return 1;}));
   xboxStart.WhenPressed(command_Breakers(&m_breakersS, &m_motorS, &m_picoS));
   // xboxStart.WhenPressed(command_Pico(&m_picoS));
   // xboxPOVDown.WhenHeld(command_Manual(&m_indexer, [=]{return 1;}));
