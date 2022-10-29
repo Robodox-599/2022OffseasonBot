@@ -6,10 +6,15 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
+#include <frc/Compressor.h> 
 
+frc::Compressor compr{0,frc::PneumaticsModuleType::CTREPCM
+};
 
-
-void Robot::RobotInit() {}
+void Robot::RobotInit() {
+ 
+   compr.EnableDigital();
+}
 
 /**
  * This function is called every 20 ms, no matter the mode. Use

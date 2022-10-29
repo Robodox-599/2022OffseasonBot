@@ -5,19 +5,34 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include "Constants.h"
+#include "rev/CANSparkMax.h"
+#include "frc/DoubleSolenoid.h"
 
-class ExampleSubsystem : public frc2::SubsystemBase {
+
+class subsystem_Intake : public frc2::SubsystemBase {
  public:
-  ExampleSubsystem();
+  subsystem_Intake();
+
+  void setSpeed(double speed);
+  void setIntakeDown();
+  void setIntakeUp();
+  bool isIntakeDeployed();
+  void setIntakeWheelsOn(double outputPower);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic() override;
 
-
-  
  private:
+
+ rev::CANSparkMax m_roller_motor;
+ frc::DoubleSolenoid m_solenoid_left;
+ frc::DoubleSolenoid m_solenoid_right;
+
+ bool m_isIntakeDeployed;
+ bool m_isExtended;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

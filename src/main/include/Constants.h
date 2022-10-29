@@ -64,7 +64,7 @@ namespace SwerveConstants{
     constexpr double AngleGearRatio = 150.0 / 7.0;
 
     
-    constexpr units::meter_t WheelCircumference{ 4.0_in * wpi::numbers::pi  };
+    constexpr units::meter_t WheelCircumference{ 4.0_in * M_PI  };
 
     const frc::Translation2d m_FrontLeft{14.0_in, -14.0_in};
     const frc::Translation2d m_FrontRight{14.0_in, 14.0_in};
@@ -174,7 +174,7 @@ namespace BackRightModule{
 }
 
 namespace AutoConstants{
-    constexpr units::radian_t PI {wpi::numbers::pi};
+    constexpr units::radian_t PI {M_PI};
     constexpr units::meters_per_second_t MaxSpeed{ 0 };
     constexpr units::meters_per_second_squared_t MaxAccel{ 0 };
     constexpr units::radians_per_second_t MaxAngularSpeed{ 0 };
@@ -193,5 +193,17 @@ namespace AutoConstants{
     constexpr double AutoAngleKD = 0.0;
     constexpr double AutoAngleKF = 0.0;
 
+
+}
+
+namespace IntakeConstants
+{
+    constexpr int intakeMotorPort = 16;
+    
+    constexpr int intakePistonLA = 0;
+    constexpr int intakePistonLB = 1;
+    constexpr int intakePistonRA = 2;
+    constexpr int intakePistonRB = 3;
+    
 
 }

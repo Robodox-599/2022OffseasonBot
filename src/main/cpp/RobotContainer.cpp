@@ -13,7 +13,8 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
                                                        [this]{return XboxDrive.GetRawAxis(ControllerConstants::xboxRXAxis);},
                                                        [this]{return SwerveConstants::IsFieldRelative;},
                                                        [this]{return SwerveConstants::IsOpenLoop;}));
-  // // Configure the button bindings
+  m_intake.SetDefaultCommand(command_IntakeRun(&m_intake, [this] {return XboxDrive.GetRawAxis(ControllerConstants::xboxLTAxis) - XboxDrive.GetRawAxis(ControllerConstants::xboxRTAxis); } ));
+  // Configure the button bindings
   ConfigureButtonBindings();
 }
 
@@ -23,14 +24,23 @@ void RobotContainer::ConfigureButtonBindings() {
    frc2::JoystickButton xboxB(&XboxYaperator, ControllerConstants::xboxB);
    frc2::JoystickButton xboxX(&XboxYaperator, ControllerConstants::xboxX);
    frc2::JoystickButton xboxY(&XboxYaperator, ControllerConstants::xboxY);
-   frc2::JoystickButton xboxRB(&XboxDrive, ControllerConstants::xboxRB);
-   frc2::JoystickButton xboxLB(&XboxYaperator, ControllerConstants::xboxLB);
+   frc2::JoystickButton xboxRB(&XboxYaperator, ControllerConstants::xboxRB);
+   frc2::JoystickButton xboxLB(&XboxDriveBttns, ControllerConstants::xboxLB);
    frc2::JoystickButton xboxLTAxis(&XboxYaperator, ControllerConstants::xboxLTAxis);
    frc2::JoystickButton xboxRTAxis(&XboxYaperator, ControllerConstants::xboxRTAxis);
 
-   xboxRB.WhenPressed( command_ZeroGyro(&m_Drive) );
+  xboxLB.WhenPressed( command_ZeroGyro(&m_Drive) );
 
-};
+  
+  xboxRB.WhenPressed(command_IntakeMode(&m_intake));
+
+}
+
+
+// right button on a toggle left trigger in right trigger out
+
+
+
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous

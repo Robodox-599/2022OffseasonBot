@@ -4,14 +4,7 @@
 
 #include "subsystems/ExampleSubsystem.h"
 
-ExampleSubsystem::ExampleSubsystem() {
-  // Implementation of subsystem constructor goes here.
-}
+ExampleSubsystem::ExampleSubsystem() = default;
 
-void ExampleSubsystem::Periodic() {
-  // Implementation of subsystem periodic method goes here.
-}
-
-void ExampleSubsystem::SimulationPeriodic() {
-  // Implementation of subsystem simulation periodic method goes here.
-}
+// This method will be called once per scheduler run
+void ExampleSubsystem::Periodic() {}

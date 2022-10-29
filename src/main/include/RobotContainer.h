@@ -17,6 +17,14 @@
 #include "frc2/command/button/JoystickButton.h"
 #include <frc/Joystick.h>
 #include "Constants.h"
+#include <frc/Joystick.h>
+
+#include "subsystems/subsystem_Intake.h"
+#include "commands/command_IntakeRun.h"
+#include "commands/command_IntakeMode.h"
+
+
+
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -36,9 +44,13 @@ class RobotContainer {
   ExampleCommand m_autonomousCommand;
 
    subsystem_SwerveDrive m_Drive;
+   subsystem_Intake m_intake;
 
   frc::XboxController XboxDrive{ControllerConstants::XboxDriveID};
+  frc::Joystick XboxDriveBttns{ControllerConstants::XboxDriveID};
   frc::Joystick XboxYaperator{ControllerConstants::XboxYaperatorID};
+
 
   void ConfigureButtonBindings();
 };
+

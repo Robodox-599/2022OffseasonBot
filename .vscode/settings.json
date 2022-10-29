@@ -14,8 +14,12 @@
     "**/.factorypath": true,
     "**/*~": true
   },
+<<<<<<< HEAD
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "files.associations": {
     "*.inc": "cpp"
   }
+=======
+  "C_Cpp.default.configurationProvider": "vscode-wpilib"
+>>>>>>> 750f2317fab8d019c4247e0b32d97a5f687ef182
 }
