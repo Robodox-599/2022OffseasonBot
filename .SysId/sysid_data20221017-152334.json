@@ -1,0 +1,7 @@
+{
+  "slow-forward": [],
+  "sysid": true,
+  "test": "Drivetrain",
+  "units": "Meters",
+  "unitsPerRotation": 1.0
+}
