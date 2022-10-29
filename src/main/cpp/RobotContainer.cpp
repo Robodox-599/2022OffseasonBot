@@ -4,6 +4,7 @@
 
 #include "RobotContainer.h"
 
+<<<<<<< HEAD
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem), m_picoC{&m_picoS}, m_motorC{&m_motorS, &m_breakersS, m_direction}, m_direction{}, m_breakersC{&m_breakersS, &m_motorS, &m_picoS} {
   // Initialize all of your commands and subsystems here
 
@@ -14,12 +15,20 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem), m_picoC{&m
                                                        [this]{return SwerveConstants::IsFieldRelative;},
                                                        [this]{return SwerveConstants::IsOpenLoop;}));
   m_intake.SetDefaultCommand(command_IntakeRun(&m_intake, [this] {return XboxDrive.GetRawAxis(ControllerConstants::xboxLTAxis) - XboxDrive.GetRawAxis(ControllerConstants::xboxRTAxis); } ));
+=======
+RobotContainer::RobotContainer() : m_AimToTargetWithLimelight(&m_turret), m_shoot(&m_turret) {
+
+  m_turret.SetDefaultCommand(command_AimToTargetWithLimelight(&m_turret));
+  // Initialize all of your commands and subsystems here
+
+>>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366
   // Configure the button bindings
   ConfigureButtonBindings();
 }
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
+<<<<<<< HEAD
    frc2::JoystickButton xboxA(&XboxYaperator, ControllerConstants::xboxA);
    frc2::JoystickButton xboxB(&XboxYaperator, ControllerConstants::xboxB);
    frc2::JoystickButton xboxX(&XboxYaperator, ControllerConstants::xboxX);
@@ -59,4 +68,16 @@ void RobotContainer::ConfigureButtonBindings() {
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return &m_autonomousCommand;
+=======
+     frc2::JoystickButton xboxA(&controller, ControllerConstants::xboxA);
+     frc2::JoystickButton xboxB(&controller, ControllerConstants::xboxB);
+
+     xboxA.WhenPressed(command_shoot(&m_turret));
+     xboxB.WhenPressed(command_endShoot(&m_turret));
+}
+
+frc2::Command* RobotContainer::GetAutonomousCommand() {
+  // An example command will be run in autonomous
+  return &m_AimToTargetWithLimelight;
+>>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366
 }

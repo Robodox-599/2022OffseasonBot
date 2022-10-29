@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
+<<<<<<< HEAD
 #include <units/length.h>
 #include <units/voltage.h>
 #include <units/velocity.h>
@@ -15,6 +16,8 @@
 
 
 
+=======
+>>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
@@ -25,11 +28,69 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
+<<<<<<< HEAD
 namespace ControllerConstants{
     constexpr double Deadband = 0.2;
     
     constexpr int XboxDriveID = 0;
     constexpr int XboxYaperatorID = 0;
+=======
+namespace ShooterConstants {
+
+  const int hoodID = 0;
+  const int flywheel1ID = 0;
+  const int flywheel2ID = 5;
+  const int turretID = 1;
+
+  const double topOfHood = 0.0;
+
+  const double rotationsCenterToLimit = 0.0;
+
+  const double gravity = -9.806;
+  const int kTimeoutMs = 30;
+  
+  const double kHoodD = 0.0; // Derivative gain
+  const double kHoodI = 0.0; // Integral gain
+  const double kHoodP = 0.07; // Proportional gain
+
+  const double kFlywheelP = 0.1;
+  const double kFlywheelI = 0.0;
+  const double kFlywheelD = 0.0;
+  const double kFlywheelF = 0.3; 
+
+  const double kAimP = 0.15;
+  const double kAimI = 0.0;
+  const double kAimD = 0.0;
+
+  constexpr static double kRotations = 0.02469136; 
+  constexpr static double kHood = 0.03703704;
+  constexpr static double kA = 0.02469136; 
+
+  constexpr static double kV = 0.06;
+
+  constexpr double kMaxRpm = 6380;
+  const double kRPMTolerance = 200.0;
+  const double kFlywheelGearRatio = 16 / 24;
+	const double kFlywheelCPR = 2048 /* Falcon CPR */ * kFlywheelGearRatio;
+
+  constexpr static double weeeeeeeeee = 0.0;
+
+   // how many degrees back is your limelight rotated from perfectly vertical?
+  constexpr double limelightMountAngleDegrees = 59.0;
+
+  // distance from the center of the Limelight lens to the floor
+  constexpr double limelightLensHeightInches = 46.6;
+
+  // distance from the target to the floor
+  constexpr double goalHeightInches = 60.0;
+
+  constexpr double desiredLandingAngle = -69.0;
+}
+
+namespace ControllerConstants
+{
+    constexpr int xboxPort = 0;
+>>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366
 
     constexpr int xboxLXAxis = 0;
     constexpr int xboxLYAxis = 1;
@@ -49,6 +110,7 @@ namespace ControllerConstants{
     constexpr int xboxMenu = 8;
     constexpr int xboxLeftJoyPress = 9;
     constexpr int xboxRightJoyPress = 10;
+<<<<<<< HEAD
     constexpr int xboxRightDPad = 11;
 }
 
@@ -258,3 +320,8 @@ namespace ShooterConstants {
 
   constexpr double desiredLandingAngle = -69.0;
 }
+=======
+    
+    constexpr int xboxRightDPad = 11;
+}
+>>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366

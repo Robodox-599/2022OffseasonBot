@@ -16,6 +16,7 @@
   },
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "files.associations": {
     "*.inc": "cpp"
@@ -91,4 +92,7 @@
   },
   "C_Cpp.errorSquiggles": "Enabled"
 >>>>>>> 0a25a83f50e298c72a617f2545295140e861f0ba
+=======
+  "C_Cpp.default.configurationProvider": "vscode-wpilib"
+>>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366
 }
