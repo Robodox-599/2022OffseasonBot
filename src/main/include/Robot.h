@@ -5,10 +5,6 @@
 #pragma once
 
 #include <frc/TimedRobot.h>
-<<<<<<< HEAD
-=======
-#include <cameraserver/CameraServer.h>
->>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366
 #include <frc2/command/Command.h>
 
 #include "RobotContainer.h"

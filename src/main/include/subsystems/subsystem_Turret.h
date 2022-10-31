@@ -68,8 +68,8 @@ class subsystem_Turret : public frc2::SubsystemBase {
   double getDistanceToGoal();
 
   //test
-  void shootTest();
-  void hoodTest();
+  void shootTest(double percent);
+  void hoodTest(double pos);
 
 
   //special situations
@@ -113,7 +113,7 @@ class subsystem_Turret : public frc2::SubsystemBase {
   rev::SparkMaxPIDController m_TurretPID;
 
   double hoodTestPosition = 7;
-  double shooterTestPercent = 10;
+  double shooterTestPercent = 20;
 
   double angleToGoalDegrees;
   double angleToGoalRadians;

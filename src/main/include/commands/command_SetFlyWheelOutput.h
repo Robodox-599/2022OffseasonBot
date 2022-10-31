@@ -6,9 +6,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/subsystem_Motor.h"
-#include"subsystems/subsystem_Breakers.h"
-
+#include "subsystems/subsystem_Flywheels.h"
 /**
  * An example command.
  *
@@ -16,20 +14,18 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class command_Motor: 
-  public frc2::CommandHelper<frc2::CommandBase, command_Motor> {
-    public:
-      command_Motor(subsystem_Motor* motor, std::function<double()> PercentOutput);
+class command_SetFlyWheelOutput
+    : public frc2::CommandHelper<frc2::CommandBase, command_SetFlyWheelOutput> {
+ public:
+  command_SetFlyWheelOutput(subsystem_Flywheels* Flywheels);
 
-      void Initialize() override;
+  void Initialize() override;
 
-      void Execute() override;
+  void Execute() override;
 
-      void End(bool interrupted) override;
+  void End(bool interrupted) override;
 
-      bool IsFinished() override;
-
-    private:
-      subsystem_Motor* m_motor;
-      std::function<double()> m_PercentOutput;
+  bool IsFinished() override;
+  private:
+  subsystem_Flywheels* m_Flywheels;
 };

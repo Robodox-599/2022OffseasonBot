@@ -6,9 +6,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/subsystem_Motor.h"
-#include"subsystems/subsystem_Breakers.h"
-
+#include <frc/Timer.h>
 /**
  * An example command.
  *
@@ -16,20 +14,19 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class command_Motor: 
-  public frc2::CommandHelper<frc2::CommandBase, command_Motor> {
-    public:
-      command_Motor(subsystem_Motor* motor, std::function<double()> PercentOutput);
+class command_Timer
+    : public frc2::CommandHelper<frc2::CommandBase, command_Timer> {
+ public:
+  command_Timer(double Seconds);
 
-      void Initialize() override;
+  void Initialize() override;
 
-      void Execute() override;
+  void Execute() override;
 
-      void End(bool interrupted) override;
+  void End(bool interrupted) override;
 
-      bool IsFinished() override;
-
-    private:
-      subsystem_Motor* m_motor;
-      std::function<double()> m_PercentOutput;
+  bool IsFinished() override;
+  private:
+  frc::Timer Timer;
+  double m_Seconds;
 };

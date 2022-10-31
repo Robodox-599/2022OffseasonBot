@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "commands/command_IntakeMode.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 
 command_IntakeMode::command_IntakeMode(subsystem_Intake* intake) : m_intake{intake} {
@@ -27,7 +28,6 @@ void command_IntakeMode::Initialize()
         printf("intake down \n");
 
   }
-  
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -34,6 +34,7 @@ class subsystem_SwerveDrive : public frc2::SubsystemBase {
                   bool FieldRelative, 
                   bool IsOpenLoop  );
   void SetModuleStates(wpi::array<frc::SwerveModuleState, 4> desiredStates);
+  void SwapOrientation();
 
   
   void ZeroGyro();

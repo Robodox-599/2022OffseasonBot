@@ -19,7 +19,7 @@ class subsystem_Intake : public frc2::SubsystemBase {
   void setIntakeUp();
   bool isIntakeDeployed();
   void setIntakeWheelsOn(double outputPower);
-
+  void Toggle();
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */

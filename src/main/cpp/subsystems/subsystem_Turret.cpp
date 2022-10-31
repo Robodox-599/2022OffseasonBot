@@ -5,8 +5,8 @@
 #include "subsystems/subsystem_Turret.h"
 
 subsystem_Turret::subsystem_Turret():
-m_FlywheelMotor1{ShooterConstants::flywheel1ID}, 
-m_FlywheelMotor2{ShooterConstants::flywheel2ID}, 
+m_FlywheelMotor1{ShooterConstants::flywheel1ID, "DriveCANivore"}, 
+m_FlywheelMotor2{ShooterConstants::flywheel2ID, "DriveCANivore"}, 
 m_TurretMotor{ShooterConstants::turretID, rev::CANSparkMax::MotorType::kBrushless}, 
 m_HoodMotor{ShooterConstants::hoodID, rev::CANSparkMax::MotorType::kBrushless},   
 m_TurretEncoder{m_TurretMotor.GetEncoder()},
@@ -20,11 +20,12 @@ m_TurretPID{m_TurretMotor.GetPIDController()}
     // m_FlywheelMotor.SetInverted();
   m_FlywheelMotor1.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
    m_FlywheelMotor2.ConfigFactoryDefault();
+   m_FlywheelMotor1.SetInverted(true);
     // m_FlywheelMotor.ConfigAllSettings(); bleh
     // m_FlywheelMotor.SetInverted();
   m_FlywheelMotor2.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
   m_FlywheelMotor2.Follow(m_FlywheelMotor1);
-  m_FlywheelMotor2.SetInverted(true);
+  m_FlywheelMotor2.SetInverted(false);
 
 //sensor config
   m_FlywheelMotor1.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, 0, ShooterConstants::kTimeoutMs);
@@ -83,16 +84,14 @@ void subsystem_Turret::aimAtTarget() {
 //     }
 // }
 
-void subsystem_Turret::hoodTest(){
-    if(hoodTestPosition <= 13 && hoodTestPosition >= 0){
-        m_HoodPID.SetReference(hoodTestPosition, rev::ControlType::kPosition);
-    }
+void subsystem_Turret::hoodTest(double pos){
+        m_HoodPID.SetReference(pos, rev::ControlType::kPosition);
 }
 
-void subsystem_Turret::shootTest(){
-    if(shooterTestPercent <= 100 && shooterTestPercent >= 0){
-        m_FlywheelMotor1.Set(ControlMode::PercentOutput, shooterTestPercent);
-    }
+void subsystem_Turret::shootTest(double percent){
+        m_FlywheelMotor1.Set(ControlMode::PercentOutput, percent);
+        // m_FlywheelMotor2.Set(ControlMode::PercentOutput, percent);
+        printf("********SHOOT TEST  %f",percent );
 }
 
 void subsystem_Turret::setHoodAngle() {
@@ -215,8 +214,7 @@ void subsystem_Turret::shootAlternate() {
 }
 
 void subsystem_Turret::endShooter() {
-    m_shooterPercent = 0.0;
-	m_FlywheelMotor1.Set(ControlMode::PercentOutput, m_shooterPercent);
+	m_FlywheelMotor1.Set(ControlMode::PercentOutput, 0.0);
 }
 
 double subsystem_Turret::findExitAngle(){
@@ -371,13 +369,17 @@ void subsystem_Turret::Periodic() {
     m_tvert = m_table_ptr->GetNumber("tvert", 0.0);
     m_getpipe = m_table_ptr->GetNumber("tgetpipe", 0.0);
     m_camtran = m_table_ptr->GetNumber("camtran", 0.0);
+    frc::SmartDashboard::SmartDashboard::PutNumber("FlyWheel 1 Speed", m_FlywheelMotor1.GetMotorOutputPercent());
+    frc::SmartDashboard::SmartDashboard::PutNumber("FlyWheel 2 Speed", m_FlywheelMotor2.GetMotorOutputPercent());
+    angleToGoalDegrees = ShooterConstants::limelightMountAngleDegrees + m_ty;
+    angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+    xDistanceLimelightToGoal = (deltaHeight)/tan(angleToGoalRadians); 
+    frc::SmartDashboard::SmartDashboard::PutNumber("Distance To Goal (INCHES):", xDistanceLimelightToGoal);
 
     // hoodTestPosition = frc::SmartDashboard::GetNumber("Hood Position (1-12)", 0);
     // shooterTestPercent = frc::SmartDashboard::GetNumber("Flywheel Percent", 0.0);
 
     // distance from the target to the floor
-    angleToGoalDegrees = ShooterConstants::limelightMountAngleDegrees + m_ty;
-    angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
 
     // mShuffleboardReady.SetBoolean(isFlyWheelRunning() && (fabs(m_TargetSpeed - m_ActualSpeed) < 75.0));
 	// mShuffleboardActualRPM.SetDouble(m_ActualSpeed);
