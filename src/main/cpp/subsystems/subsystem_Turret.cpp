@@ -5,8 +5,8 @@
 #include "subsystems/subsystem_Turret.h"
 
 subsystem_Turret::subsystem_Turret():
-m_FlywheelMotor1{ShooterConstants::flywheel1ID}, 
-m_FlywheelMotor2{ShooterConstants::flywheel2ID}, 
+m_FlywheelMotor1{ShooterConstants::flywheel1ID, "DriveCANivore"}, 
+m_FlywheelMotor2{ShooterConstants::flywheel2ID, "DriveCANivore"}, 
 m_TurretMotor{ShooterConstants::turretID, rev::CANSparkMax::MotorType::kBrushless}, 
 m_HoodMotor{ShooterConstants::hoodID, rev::CANSparkMax::MotorType::kBrushless},   
 m_TurretEncoder{m_TurretMotor.GetEncoder()},
@@ -20,11 +20,12 @@ m_TurretPID{m_TurretMotor.GetPIDController()}
     // m_FlywheelMotor.SetInverted();
   m_FlywheelMotor1.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
    m_FlywheelMotor2.ConfigFactoryDefault();
+   m_FlywheelMotor1.SetInverted(true);
     // m_FlywheelMotor.ConfigAllSettings(); bleh
     // m_FlywheelMotor.SetInverted();
   m_FlywheelMotor2.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
   m_FlywheelMotor2.Follow(m_FlywheelMotor1);
-  m_FlywheelMotor2.SetInverted(true);
+  m_FlywheelMotor2.SetInverted(false);
 
 //sensor config
   m_FlywheelMotor1.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, 0, ShooterConstants::kTimeoutMs);
@@ -34,43 +35,53 @@ m_TurretPID{m_TurretMotor.GetPIDController()}
   m_FlywheelMotor2.SetSensorPhase(true);
   m_FlywheelMotor2.SetSelectedSensorPosition(0, 0, ShooterConstants::kTimeoutMs);
 
+m_HoodPID.SetP(ShooterConstants::kHoodP);
+  m_HoodPID.SetD(ShooterConstants::kHoodD);
+  m_HoodMotor.SetClosedLoopRampRate(0.5);
+
 
 //closed loop gains
+//   m_FlywheelMotor1.Config_kP(0, frc::SmartDashboard::SmartDashboard::GetNumber("kP", 0.0), ShooterConstants::kTimeoutMs);
+//   m_FlywheelMotor1.Config_kD(0, frc::SmartDashboard::SmartDashboard::GetNumber("kD", 0.0), ShooterConstants::kTimeoutMs);
+//   m_FlywheelMotor1.Config_kF(0, frc::SmartDashboard::SmartDashboard::GetNumber("kF", 0.0), ShooterConstants::kTimeoutMs);
+//   m_FlywheelMotor1.Config_kI(0, ShooterConstants::kFlywheelI, ShooterConstants::kTimeoutMs);
+//   m_FlywheelMotor1.SelectProfileSlot(0, 0);
+
+  m_FlywheelMotor1.Config_kP(0, ShooterConstants::kFlywheelP, ShooterConstants::kTimeoutMs);
   m_FlywheelMotor1.Config_kD(0, ShooterConstants::kFlywheelD, ShooterConstants::kTimeoutMs);
   m_FlywheelMotor1.Config_kF(0, ShooterConstants::kFlywheelF, ShooterConstants::kTimeoutMs);
   m_FlywheelMotor1.Config_kI(0, ShooterConstants::kFlywheelI, ShooterConstants::kTimeoutMs);
-  m_FlywheelMotor1.Config_kP(0, ShooterConstants::kFlywheelP, ShooterConstants::kTimeoutMs);
   m_FlywheelMotor1.SelectProfileSlot(0, 0);
 
 //   m_FlywheelMotor2.Config_kD(0, ShooterConstants::kFlywheelD, ShooterConstants::kTimeoutMs);
 //   m_FlywheelMotor2.Config_kF(0, ShooterConstants::kFlywheelF, ShooterConstants::kTimeoutMs);
 //   m_FlywheelMotor2.Config_kI(0, ShooterConstants::kFlywheelI, ShooterConstants::kTimeoutMs);
 //   m_FlywheelMotor2.Config_kP(0, ShooterConstants::kFlywheelP, ShooterConstants::kTimeoutMs);
-  m_FlywheelMotor2.SelectProfileSlot(0, 0);
+//   m_FlywheelMotor2.SelectProfileSlot(0, 0);
 
   m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
   m_HoodMotor.SetSoftLimit(rev::CANSparkMax::SoftLimitDirection::kForward, 12);
   
-  m_HoodPID.SetP(ShooterConstants::kHoodP);
+//   m_HoodPID.SetP(ShooterConstants::kHoodP);
 //   m_HoodPID.SetI(ShooterConstants::kHoodI);
 //   m_HoodPID.SetD(ShooterConstants::kHoodD);
 
-  m_TurretPID.SetP(ShooterConstants::kAimP);
-  m_TurretPID.SetI(ShooterConstants::kAimI);
-  m_TurretPID.SetD(ShooterConstants::kAimD);
+//   m_TurretPID.SetP(ShooterConstants::kAimP);
+//   m_TurretPID.SetI(ShooterConstants::kAimI);
+//   m_TurretPID.SetD(ShooterConstants::kAimD);
 }
 
-void subsystem_Turret::aimAtTarget() {
-    if(m_valid && m_tx != 0){
-            m_TurretPID.SetReference(getTurretRotations() ,rev::ControlType::kPosition, 0);
-    }
-    else{
-        printf("NO VISION TARGETS");
-        // m_TurretPID.SetReference(leftTurretEndPoint,rev::ControlType::kPosition, 0);
-        // m_TurretPID.SetReference(rightTurretEndPoint,rev::ControlType::kPosition, 0);
-    }
+// void subsystem_Turret::aimAtTarget() {
+//     // if(m_valid && m_tx != 0){
+//     //         m_TurretPID.SetReference(getTurretRotations() ,rev::ControlType::kPosition, 0);
+//     // }
+//     // else{
+//     //     printf("NO VISION TARGETS");
+//     //     // m_TurretPID.SetReference(leftTurretEndPoint,rev::ControlType::kPosition, 0);
+//     //     // m_TurretPID.SetReference(rightTurretEndPoint,rev::ControlType::kPosition, 0);
+//     // }
 
-}
+// }
 
 // void subsystem_Turret::swingTurretAround() {
 //     if(m_valid && m_tx < 0){
@@ -83,140 +94,78 @@ void subsystem_Turret::aimAtTarget() {
 //     }
 // }
 
-void subsystem_Turret::hoodTest(){
-    if(hoodTestPosition <= 13 && hoodTestPosition >= 0){
+void subsystem_Turret::hoodTest(double pos){
         m_HoodPID.SetReference(hoodTestPosition, rev::ControlType::kPosition);
-    }
 }
 
-void subsystem_Turret::shootTest(){
-    if(shooterTestPercent <= 100 && shooterTestPercent >= 0){
-        m_FlywheelMotor1.Set(ControlMode::PercentOutput, shooterTestPercent);
-    }
+void subsystem_Turret::shootTest(double percent){
+        m_FlywheelMotor1.Set(ControlMode::Velocity, percent);
+        // m_FlywheelMotor2.Set(ControlMode::PercentOutput, percent);
+        printf("********SHOOT TEST  %f",shooterTestVelocity );
 }
 
 void subsystem_Turret::setHoodAngle() {
     // m_HoodPID.SetReference(findExitAngle(), rev::ControlType::kPosition, 0);
     // m_degrees = std::clamp(degrees, hoodEndPoint, ShooterConstants::topOfHood) *  ShooterConstants::kHood;
     // m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition, 0);
-    if(xDistanceLimelightToGoal >= 252){
-        if(xDistanceLimelightToGoal >= 240){
-            if(xDistanceLimelightToGoal >= 228){
-                if(xDistanceLimelightToGoal >= 216){
-                    if(xDistanceLimelightToGoal >= 204){
-                        if(xDistanceLimelightToGoal >= 192){
-                            if(xDistanceLimelightToGoal >= 180){
-                                if(xDistanceLimelightToGoal >= 168){
-                                    if(xDistanceLimelightToGoal >= 156){
-                                        if(xDistanceLimelightToGoal >= 144){
-                                            if(xDistanceLimelightToGoal >= 132){
-                                                if(xDistanceLimelightToGoal >= 120){
-                                                    if(xDistanceLimelightToGoal >= 108){
-                                                        if(xDistanceLimelightToGoal >= 96){
-                                                            if(xDistanceLimelightToGoal >= 84){
-                                                                if(xDistanceLimelightToGoal >= 72){
-                                                                    if(xDistanceLimelightToGoal >= 60){ 
-                                                                        //5 feet and closer
-                                                                        m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                                        m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                                        m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);
-                                                                    }
-                                                                // 6 ft to 5 ft
-                                                                m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                                m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                                m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);    
-                                                                }
-                                                            //7 ft to 6 ft
-                                                            m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                            m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                            m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);
-                                                            }
-                                                        //8 ft to 7 ft
-                                                        m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                        m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                        m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition); 
-                                                        }
-                                                    //9 ft to 8 ft
-                                                    m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                    m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                    m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);                                                        
-                                                    }
-                                                //10 ft to 9 ft
-                                                m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                                m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);
-                                                }
-                                            //11 ft to 10 ft
-                                            m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                            m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                            m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);   
-                                            }
-                                        //12 ft to 11 ft
-                                        m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                        m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                        m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);
-                                        }
-                                    //13 ft to 12 ft
-                                    m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                    m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                    m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);    
-                                    }
-                                //14 ft to 13 ft
-                                m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                                m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);    
-                                }
-                            //15 ft to 14 ft
-                            m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                            m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                            m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);    
-                            }
-                        //16 ft to 15 ft
-                        m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                        m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                        m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);    
-                        }
-                    //17 ft to 16 ft
-                    m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                    m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                    m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);    
-                    }
-                //18 ft to 17 ft
-                m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-                m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-                m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);
-                }
-            //19 ft to 18 ft
-            m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-            m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-            m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);    
-            }
-        //20 ft to 19 ft
-        m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-        m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-        m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);
-        }
-    //21 ft to 20 ft
-    m_degrees = (0.0) * xDistanceLimelightToGoal + 0.0;
-    m_shooterPercent = (0.0) * xDistanceLimelightToGoal + 0.0;
-    m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);
-    }
 
+    if(xDistanceLimelightToGoal <= 61){
+        if(xDistanceLimelightToGoal <=56){
+            if(xDistanceLimelightToGoal <= 49){
+                if(xDistanceLimelightToGoal <= 42){
+                    if(xDistanceLimelightToGoal <= 35){
+                        if(xDistanceLimelightToGoal <= 28){
+                            if(xDistanceLimelightToGoal <= 21){
+                                if(xDistanceLimelightToGoal <= 14){
+                                    if(xDistanceLimelightToGoal <= 7){          
+                                        m_degrees = 2;
+                                        m_shooterPercent = 8000;
+                                        m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);
+                                    }
+                                    m_degrees = (0.142857) * xDistanceLimelightToGoal + 0.0;
+                                    m_shooterPercent = (285.714) * xDistanceLimelightToGoal + 4000;
+                                    m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);    
+                                }
+                                m_degrees = (0) * xDistanceLimelightToGoal + 3;
+                                m_shooterPercent = (142.857) * xDistanceLimelightToGoal + 7000;
+                                m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);
+                            }
+                            m_degrees = (0.142857) * xDistanceLimelightToGoal + -1;
+                            m_shooterPercent = (142.857) * xDistanceLimelightToGoal + 7000;
+                            m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition); 
+                        }
+                        m_degrees = (0.142857) * xDistanceLimelightToGoal + -1;
+                        m_shooterPercent = (142.857) * xDistanceLimelightToGoal + 7000;
+                        m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);                                                        
+                    }
+                    m_degrees = (0.357143) * xDistanceLimelightToGoal + -10.0;
+                    m_shooterPercent = (35.7143) * xDistanceLimelightToGoal + 11500;
+                    m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);
+                }
+                m_degrees = (0.0) * xDistanceLimelightToGoal + 7.5;
+                m_shooterPercent = (107.143) * xDistanceLimelightToGoal + 8000;
+                m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);   
+            }
+            m_degrees = (0.5) * xDistanceLimelightToGoal + -20.5;
+            m_shooterPercent = (100) * xDistanceLimelightToGoal + 8400;
+            m_HoodPID.SetReference(m_degrees, rev::ControlType::kPosition);
+        }
+    }
 }
 
 void subsystem_Turret::startShootAtExitVelocity() {
-    m_FlywheelMotor1.Set(ControlMode::PercentOutput, m_shooterPercent);
+    m_FlywheelMotor1.Set(ControlMode::Position, m_shooterPercent);
 }
 
 void subsystem_Turret::shootAlternate() {
-    m_TurretPID.SetReference(leftTurretEndPoint,rev::ControlType::kPosition, 0);
-    m_FlywheelMotor1.Set(ControlMode::Velocity, ShooterConstants::weeeeeeeeee);
+    // m_TurretPID.SetReference(leftTurretEndPoint,rev::ControlType::kPosition, 0);
+    // m_FlywheelMotor1.Set(ControlMode::Velocity, ShooterConstants::weeeeeeeeee);
 
 }
 
 void subsystem_Turret::endShooter() {
-    m_shooterPercent = 0.0;
-	m_FlywheelMotor1.Set(ControlMode::PercentOutput, m_shooterPercent);
+	m_FlywheelMotor1.Set(ControlMode::PercentOutput, 0.0);
+    m_HoodPID.SetReference(0.0,rev::ControlType::kPosition);
 }
 
 double subsystem_Turret::findExitAngle(){
@@ -277,15 +226,11 @@ bool subsystem_Turret::canSeeTarget(){
     return m_valid;
 }
 
-bool subsystem_Turret::setLight(bool on){
-    lightOn = on; 
-    m_table_ptr->PutNumber("ledMode", on ? 0 : 1);
-}
+// bool subsystem_Turret::setLight(bool on){
+//     lightOn = on; 
+//     m_table_ptr->PutNumber("ledMode", on ? 0 : 1);
+// }
 
-void subsystem_Turret::toggleLight(){
-    lightOn = !lightOn;
-    setLight(lightOn);
-}
 
 // bool subsystem_Turret::isAtOppositeEndPoint(){
 //     if(fabs(m_TurretEncoder.GetPosition() - rightTurretEndPoint) > 5 && !whichEndPoint){
@@ -371,13 +316,24 @@ void subsystem_Turret::Periodic() {
     m_tvert = m_table_ptr->GetNumber("tvert", 0.0);
     m_getpipe = m_table_ptr->GetNumber("tgetpipe", 0.0);
     m_camtran = m_table_ptr->GetNumber("camtran", 0.0);
+    // frc::SmartDashboard::SmartDashboard::PutNumber("FlyWheel 1 Speed", m_FlywheelMotor1.GetMotorOutputPercent());
+    // frc::SmartDashboard::SmartDashboard::PutNumber("FlyWheel 2 Speed", m_FlywheelMotor2.GetMotorOutputPercent());
+    angleToGoalDegrees = ShooterConstants::limelightMountAngleDegrees + m_ty;
+    angleToGoalRadians = angleToGoalDegrees * (3.14159253589793 / 180.0);
+    xDistanceLimelightToGoal = (deltaHeight)/tan(angleToGoalRadians);
+    frc::SmartDashboard::SmartDashboard::PutBoolean("m_valid", m_valid); 
+    frc::SmartDashboard::SmartDashboard::PutNumber("m_tx", m_tx);
+    frc::SmartDashboard::SmartDashboard::PutNumber("m_ty", m_ty);
+    frc::SmartDashboard::SmartDashboard::PutNumber("Distance To Goal (INCHES):", xDistanceLimelightToGoal);
+    frc::SmartDashboard::SmartDashboard::PutNumber("Desired Velocity (m/s) is ", m_FlywheelMotor1.GetSelectedSensorVelocity());
 
-    // hoodTestPosition = frc::SmartDashboard::GetNumber("Hood Position (1-12)", 0);
-    // shooterTestPercent = frc::SmartDashboard::GetNumber("Flywheel Percent", 0.0);
+    hoodTestPosition = frc::SmartDashboard::SmartDashboard::GetNumber("Hood Position (1-12)", 0);
+    shooterTestVelocity = frc::SmartDashboard::SmartDashboard::GetNumber("Flywheel Velocity", 0.0);
+
+  frc::SmartDashboard::SmartDashboard::PutNumber("Current Hood Pos:", m_HoodEncoder.GetPosition());
+
 
     // distance from the target to the floor
-    angleToGoalDegrees = ShooterConstants::limelightMountAngleDegrees + m_ty;
-    angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
 
     // mShuffleboardReady.SetBoolean(isFlyWheelRunning() && (fabs(m_TargetSpeed - m_ActualSpeed) < 75.0));
 	// mShuffleboardActualRPM.SetDouble(m_ActualSpeed);

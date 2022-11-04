@@ -33,7 +33,10 @@ SwerveModule::SwerveModule(const double Module[] ):
     m_DriveMotor.EnableVoltageCompensation(true);
 
     m_LastAngle = GetState().angle.Degrees();
+    
 }
+
+
 
 void SwerveModule::SetDegrees(units::degree_t Degrees){
 
@@ -44,7 +47,9 @@ void SwerveModule::SetDegrees(units::degree_t Degrees){
 double SwerveModule::getTurnCounts(){
     return m_AngleMotor.GetSelectedSensorPosition();
 }
-
+void SwerveModule::SwapOrientation(){
+    m_DriveMotor.SetInverted(!m_DriveMotor.GetInverted());
+}
 
 void SwerveModule::SetDesiredState(frc::SwerveModuleState& DesiredState, bool IsOpenLoop){
     DesiredState = Optimize(DesiredState, GetState().angle);

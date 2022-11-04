@@ -6,7 +6,6 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
-<<<<<<< HEAD
 #include <frc/Compressor.h> 
 
 frc::Compressor compr{0,frc::PneumaticsModuleType::CTREPCM
@@ -15,17 +14,6 @@ frc::Compressor compr{0,frc::PneumaticsModuleType::CTREPCM
 void Robot::RobotInit() {
  
    compr.EnableDigital();
-=======
-
-void Robot::RobotInit() {
-  // frc::SmartDashboard::PutNumber("Alliance  (Blue - 1, Red - 2): ", 0);
-  cs::UsbCamera camera0 = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
-  camera0.SetBrightness(100);
-  camera0.SetResolution(320, 240); 
-
-  frc::SmartDashboard::PutNumber("Hood Position (1-12)", 0.0);
-  
->>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366
 }
 
 /**

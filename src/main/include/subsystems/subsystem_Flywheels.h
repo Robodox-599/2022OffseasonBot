@@ -5,19 +5,21 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <ctre/phoenix/motorcontrol/can/TalonFX.h>
+#include "Constants.h"
 
-class ExampleSubsystem : public frc2::SubsystemBase {
+class subsystem_Flywheels : public frc2::SubsystemBase {
  public:
-  ExampleSubsystem();
-
+  subsystem_Flywheels();
+  void setPercentOutput(double percentOutput);
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic() override;
 
-
-  
  private:
+ ctre::phoenix::motorcontrol::can::TalonFX m_Flywheel1;
+ //ctre::phoenix::motorcontrol::can::TalonFC m_Flywheel2;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

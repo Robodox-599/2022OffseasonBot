@@ -9,7 +9,7 @@
 
 
 
-subsystem_SwerveDrive::subsystem_SwerveDrive():m_Gyro{SwerveConstants::CANCoderID}, 
+subsystem_SwerveDrive::subsystem_SwerveDrive():m_Gyro{SwerveConstants::CANCoderID,  "DriveCANivore"}, 
                                                m_FrontLeftModule{FrontLeftModule::Constants},
                                                m_FrontRightModule{FrontRightModule::Constants},
                                                m_BackLeftModule{BackLeftModule::Constants},
@@ -61,6 +61,11 @@ void subsystem_SwerveDrive::SetModuleStates(wpi::array<frc::SwerveModuleState, 4
   m_BackLeftModule.SetDesiredState(desiredStates[2], false);
   m_BackRightModule.SetDesiredState(desiredStates[3], false);
 }
+
+void subsystem_SwerveDrive::SwapOrientation(){
+    m_FrontLeftModule.SwapOrientation();
+}
+
 
 
 void subsystem_SwerveDrive::ResetOdometry(frc::Pose2d Pose){

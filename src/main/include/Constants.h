@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-<<<<<<< HEAD
 #include <units/length.h>
 #include <units/voltage.h>
 #include <units/velocity.h>
@@ -16,8 +15,6 @@
 
 
 
-=======
->>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
@@ -28,69 +25,11 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
-<<<<<<< HEAD
 namespace ControllerConstants{
     constexpr double Deadband = 0.2;
     
     constexpr int XboxDriveID = 0;
-    constexpr int XboxYaperatorID = 0;
-=======
-namespace ShooterConstants {
-
-  const int hoodID = 0;
-  const int flywheel1ID = 0;
-  const int flywheel2ID = 5;
-  const int turretID = 1;
-
-  const double topOfHood = 0.0;
-
-  const double rotationsCenterToLimit = 0.0;
-
-  const double gravity = -9.806;
-  const int kTimeoutMs = 30;
-  
-  const double kHoodD = 0.0; // Derivative gain
-  const double kHoodI = 0.0; // Integral gain
-  const double kHoodP = 0.07; // Proportional gain
-
-  const double kFlywheelP = 0.1;
-  const double kFlywheelI = 0.0;
-  const double kFlywheelD = 0.0;
-  const double kFlywheelF = 0.3; 
-
-  const double kAimP = 0.15;
-  const double kAimI = 0.0;
-  const double kAimD = 0.0;
-
-  constexpr static double kRotations = 0.02469136; 
-  constexpr static double kHood = 0.03703704;
-  constexpr static double kA = 0.02469136; 
-
-  constexpr static double kV = 0.06;
-
-  constexpr double kMaxRpm = 6380;
-  const double kRPMTolerance = 200.0;
-  const double kFlywheelGearRatio = 16 / 24;
-	const double kFlywheelCPR = 2048 /* Falcon CPR */ * kFlywheelGearRatio;
-
-  constexpr static double weeeeeeeeee = 0.0;
-
-   // how many degrees back is your limelight rotated from perfectly vertical?
-  constexpr double limelightMountAngleDegrees = 59.0;
-
-  // distance from the center of the Limelight lens to the floor
-  constexpr double limelightLensHeightInches = 46.6;
-
-  // distance from the target to the floor
-  constexpr double goalHeightInches = 60.0;
-
-  constexpr double desiredLandingAngle = -69.0;
-}
-
-namespace ControllerConstants
-{
-    constexpr int xboxPort = 0;
->>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366
+    constexpr int XboxYaperatorID = 1;
 
     constexpr int xboxLXAxis = 0;
     constexpr int xboxLYAxis = 1;
@@ -110,7 +49,6 @@ namespace ControllerConstants
     constexpr int xboxMenu = 8;
     constexpr int xboxLeftJoyPress = 9;
     constexpr int xboxRightJoyPress = 10;
-<<<<<<< HEAD
     constexpr int xboxRightDPad = 11;
 }
 
@@ -142,16 +80,17 @@ namespace SwerveConstants{
 
 
     /*setting up correct units for the simepleMotorFeedforward KS gain*/
-    constexpr units::volt_t DriveKS{0.566};
+    constexpr units::volt_t DriveKS{0.69719};
 
-    constexpr units::volt_t VoltageKV{0.678};
+    constexpr units::volt_t VoltageKV{2.2575};
     constexpr units::foot_t FeetKV{1.0};
     constexpr units::second_t TimeKV{1.0};
     /*Setting up correct units for the simpleMotorFeedforward KV gain
-    Change VoltageKV when wanting to change the KV gain*/
+    Change VoltageKV when wanting to change 
+    the KV gain*/
     constexpr auto DriveKV = VoltageKV * TimeKV / FeetKV;
 
-    constexpr units::volt_t VoltageKA{0.039};
+    constexpr units::volt_t VoltageKA{0.35831};
     constexpr units::foot_t FeetKA{1.0};
     constexpr units::second_t TimeKA{1.0};
     /*Setting up correct units for the simpleMotorFeedforward KA gain
@@ -164,29 +103,29 @@ namespace SwerveConstants{
     
 
     /*Swerve Angle Motor PID gains*/
-    constexpr double AngleKP = 0.1;
+    constexpr double AngleKP = 0.4;
     constexpr double AngleKI = 0.0;
-    constexpr double AngleKD = 0.0;
+    constexpr double AngleKD = 0.004;
     constexpr double AngleKF = 0.0;
 
     /*Swerve Angle Current Limit Config*/
     constexpr bool AngleEnableCurrentLimit = true;
-    constexpr int AngleContinuousCurrentLimit = 25;
+    constexpr int AngleContinuousCurrentLimit = 20;
     constexpr int AnglePeakCurrentLimit = 40;
     constexpr double AnglePeakCurrentDuration = 0.1;
 
 
     
     /*Swerve Drive Motor PID gains*/
-    constexpr double DriveKP = 0.01;
+    constexpr double DriveKP = 0.2;
     constexpr double DriveKI = 0.0;
-    constexpr double DriveKD = 0.0;
+    constexpr double DriveKD = 0.002;
     constexpr double DriveKF = 0.0;
 
     /*Swerve Drive Current Limit Config*/
     constexpr bool DriveEnableCurrentLimit = true;
-    constexpr int DriveContinuousCurrentLimit = 35;
-    constexpr int DrivePeakCurrentLimit = 60;
+    constexpr int DriveContinuousCurrentLimit = 20;
+    constexpr int DrivePeakCurrentLimit = 40;
     constexpr double DrivePeakCurrentDuration = 0.1;
 
 
@@ -199,7 +138,7 @@ namespace SwerveConstants{
     constexpr units::meters_per_second_t MaxSpeed{3};
     constexpr units::degrees_per_second_t MaxAngularVelocity{360};
 
-    constexpr bool IsFieldRelative = false;
+    constexpr bool IsFieldRelative = true;
     constexpr bool IsOpenLoop = false;  
 }
 
@@ -270,6 +209,7 @@ namespace IntakeConstants
 
 }
 namespace IndexerConstants {
+
     constexpr int indexerID = 15;
     constexpr int breakerPort0 = 0;
     constexpr int breakerPort1 = 1;
@@ -285,43 +225,50 @@ namespace IndexerConstants {
 
 namespace ShooterConstants {
 
-  const int hoodID = 1;
-  const int flywheelID = 2;
-  const int turretID = 0;
+  const int hoodID = 19;
+  const int flywheel1ID = 20;
+  const int flywheel2ID = 21;
+  const int turretID = 22;
 
+  const double topOfHood = 0.0;
 
-  const  double gravity = -9.806;
+  const double rotationsCenterToLimit = 0.0;
+
+  const double gravity = -9.806;
   const int kTimeoutMs = 30;
   
-  const double kHoodD = 0.0; // Derivative gain
-  const double kHoodF = 0.046503; // Feed forward gain
+  const double kHoodD = 0.08; // Derivative gain
   const double kHoodI = 0.0; // Integral gain
-  const double kHoodP = 0.22; // Proportional gain
+  const double kHoodP = 0.09; // Proportional gain
 
-  const double kAimP = 0.1;
-  const double kAimI = 0.1;
-  const double kAimD = 0.0;
+  const double kFlywheelP = 0.16;
+  const double kFlywheelI = 0.0;
+  const double kFlywheelD = 0.5;
+  const double kFlywheelF = 0.052; 
 
-  constexpr static double kR = 0.02469136; 
-  constexpr static double kT = 0.03703704;
+ 
+
+  constexpr static double kRotations = 0.02469136; 
+  constexpr static double kHood = 0.03703704;
   constexpr static double kA = 0.02469136; 
-  constexpr static double kV = 0.0;
+
+  constexpr static double kV = 0.06;
+
+  constexpr double kMaxRpm = 6380;
+  const double kRPMTolerance = 200.0;
+  const double kFlywheelGearRatio = 16 / 24;
+	const double kFlywheelCPR = 2048 /* Falcon CPR */ * kFlywheelGearRatio;
 
   constexpr static double weeeeeeeeee = 0.0;
 
    // how many degrees back is your limelight rotated from perfectly vertical?
-  constexpr double limelightMountAngleDegrees = 25.0;
+  constexpr double limelightMountAngleDegrees = 59.0;
 
   // distance from the center of the Limelight lens to the floor
-  constexpr double limelightLensHeightInches = 20.0;
+  constexpr double limelightLensHeightInches = 44.23;
 
   // distance from the target to the floor
-  constexpr double goalHeightInches = 60.0;
+  constexpr double goalHeightInches = 104.0;
 
   constexpr double desiredLandingAngle = -69.0;
 }
-=======
-    
-    constexpr int xboxRightDPad = 11;
-}
->>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366

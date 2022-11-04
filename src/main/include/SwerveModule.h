@@ -18,9 +18,7 @@ class SwerveModule {
         frc::SwerveModuleState Optimize(frc::SwerveModuleState DesiredState, frc::Rotation2d CurrentAngle);
         frc::SwerveModuleState GetState();
         void SetDegrees(units::degree_t Degrees);
-
-        
-     
+        void SwapOrientation();       
         units::degree_t FalconToDegrees(double Counts);
         double DegreesToFalcon(units::degree_t Degrees);
         double FalconToRPM(double VelocityCounts);

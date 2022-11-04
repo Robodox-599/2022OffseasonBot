@@ -4,8 +4,8 @@
 
 #include "subsystems/subsystem_Motor.h"
 #include "frc/smartdashboard/SmartDashboard.h"
-
-subsystem_Motor::subsystem_Motor(): m_motor{15, rev::CANSparkMaxLowLevel::MotorType::kBrushless} {}
+#include "Constants.h"
+subsystem_Motor::subsystem_Motor(): m_motor{IndexerConstants::indexerID, rev::CANSparkMaxLowLevel::MotorType::kBrushless} {}
 
 // This method will be called once per scheduler run
 void subsystem_Motor::Periodic() {}

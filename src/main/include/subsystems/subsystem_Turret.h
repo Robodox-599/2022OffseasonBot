@@ -11,10 +11,13 @@
 #include <frc/DigitalInput.h>
 #include <frc2/command/SubsystemBase.h>
 #include <rev/CANSparkMax.h>
+
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableEntry.h>
 #include <networktables/NetworkTableValue.h>
 #include <networktables/NetworkTableInstance.h>
+#include "wpi/span.h"
+
 #include <frc2/command/PIDSubsystem.h>
 #include <units/angular_velocity.h>
 #include <ctre/Phoenix.h>
@@ -48,8 +51,8 @@ class subsystem_Turret : public frc2::SubsystemBase {
   double velocityToRPM(double velocity);
 
   bool canSeeTarget();
-  bool setLight(bool on);
-  void toggleLight();
+  // bool setLight(bool on);
+  // void toggleLight();
 
   double findExitVelocity();
   double findExitAngle(); 
@@ -68,8 +71,8 @@ class subsystem_Turret : public frc2::SubsystemBase {
   double getDistanceToGoal();
 
   //test
-  void shootTest();
-  void hoodTest();
+  void shootTest(double percent);
+  void hoodTest(double pos);
 
 
   //special situations
@@ -112,15 +115,15 @@ class subsystem_Turret : public frc2::SubsystemBase {
   rev::SparkMaxPIDController m_HoodPID;
   rev::SparkMaxPIDController m_TurretPID;
 
-  double hoodTestPosition = 7;
-  double shooterTestPercent = 10;
+  double hoodTestPosition;
+  double shooterTestVelocity;
 
   double angleToGoalDegrees;
   double angleToGoalRadians;
   // frc2::PIDController aimPID;
   // frc2::PIDController hoodPID; 
 
-  std::shared_ptr<nt::NetworkTable> m_table_ptr = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
+  std::shared_ptr<nt::NetworkTable> m_table_ptr = nt::NetworkTableInstance::GetDefault().GetTable("limelight-wocky");
 
   double m_turn;
   double m_rotation; 

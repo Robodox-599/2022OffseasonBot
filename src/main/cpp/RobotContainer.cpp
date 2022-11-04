@@ -4,9 +4,9 @@
 
 #include "RobotContainer.h"
 
-<<<<<<< HEAD
-RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem), m_picoC{&m_picoS}, m_motorC{&m_motorS, &m_breakersS, m_direction}, m_direction{}, m_breakersC{&m_breakersS, &m_motorS, &m_picoS} {
+RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
   // Initialize all of your commands and subsystems here
+
 
   m_Drive.SetDefaultCommand( command_SwerveDriveTeleop(&m_Drive,
                                                        [this]{return XboxDrive.GetRawAxis(ControllerConstants::xboxLYAxis);},
@@ -14,48 +14,44 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem), m_picoC{&m
                                                        [this]{return XboxDrive.GetRawAxis(ControllerConstants::xboxRXAxis);},
                                                        [this]{return SwerveConstants::IsFieldRelative;},
                                                        [this]{return SwerveConstants::IsOpenLoop;}));
-  m_intake.SetDefaultCommand(command_IntakeRun(&m_intake, [this] {return XboxDrive.GetRawAxis(ControllerConstants::xboxLTAxis) - XboxDrive.GetRawAxis(ControllerConstants::xboxRTAxis); } ));
-=======
-RobotContainer::RobotContainer() : m_AimToTargetWithLimelight(&m_turret), m_shoot(&m_turret) {
+   m_intake.SetDefaultCommand(command_IntakeRun(&m_intake, [this] {return XboxDrive.GetRawAxis(ControllerConstants::xboxRTAxis) - XboxDrive.GetRawAxis(ControllerConstants::xboxLTAxis); } ));
+  // m_turret.SetDefaultCommand(command_AimToTargetWithLimelight(&m_turret));
 
-  m_turret.SetDefaultCommand(command_AimToTargetWithLimelight(&m_turret));
-  // Initialize all of your commands and subsystems here
-
->>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366
   // Configure the button bindings
   ConfigureButtonBindings();
 }
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
-<<<<<<< HEAD
    frc2::JoystickButton xboxA(&XboxYaperator, ControllerConstants::xboxA);
    frc2::JoystickButton xboxB(&XboxYaperator, ControllerConstants::xboxB);
    frc2::JoystickButton xboxX(&XboxYaperator, ControllerConstants::xboxX);
    frc2::JoystickButton xboxY(&XboxYaperator, ControllerConstants::xboxY);
-   frc2::JoystickButton xboxRB(&XboxYaperator, ControllerConstants::xboxRB);
+   frc2::JoystickButton xboxRB(&XboxDriveBttns, ControllerConstants::xboxRB);
+   frc2::JoystickButton xboxYDrive(&XboxDriveBttns, ControllerConstants::xboxY);
+   frc2::JoystickButton xboxLBYaperator(&XboxYaperator, ControllerConstants::xboxLB);
+   frc2::JoystickButton xboxRBYaperator(&XboxYaperator, ControllerConstants::xboxRB);
    frc2::JoystickButton xboxLB(&XboxDriveBttns, ControllerConstants::xboxLB);
    frc2::JoystickButton xboxLTAxis(&XboxYaperator, ControllerConstants::xboxLTAxis);
    frc2::JoystickButton xboxRTAxis(&XboxYaperator, ControllerConstants::xboxRTAxis);
 
-  frc2::POVButton xboxPOVUp(&XboxYaperator, 0, 0);
-  frc2::POVButton xboxPOVRight(&XboxYaperator, 90, 0);
-  frc2::POVButton xboxPOVDown(&XboxYaperator, 180, 0);
-  frc2::POVButton xboxPOVLeft(&XboxYaperator, 270, 0);
-  frc2::JoystickButton xboxStart(&XboxYaperator, 8);
 
-  // xboxStart.WhenPressed(command_Pico(&m_picoS));
-  xboxPOVLeft.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return 0;}));
-  xboxPOVDown.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return -1;}));
-  xboxPOVUp.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return 1;}));
-  xboxPOVRight.WhenPressed(command_Motor(&m_motorS, &m_breakersS, [=]{return 2;}));
-  xboxStart.WhenPressed(command_Breakers(&m_breakersS, &m_motorS, &m_picoS));
-  // xboxStart.WhenPressed(command_Pico(&m_picoS));
-
-  xboxLB.WhenPressed( command_ZeroGyro(&m_Drive) );
+  // // xboxStart.WhenPressed(command_Pico(&m_picoS));
+   xboxY.WhenPressed(command_Motor(&m_motorS, [=]{return 0.0;}));
+   xboxLBYaperator.WhenPressed(command_Motor(&m_motorS, [=]{return -0.4;}));
+   xboxRBYaperator.WhenPressed(command_Motor(&m_motorS, [=]{return 0.4;}));
+  // // xboxStart.WhenPressed(command_Breakers(&m_breakersS, &m_motorS, &m_picoS));
+  // // // xboxStart.WhenPressed(command_Pico(&m_picoS));
 
   
-  xboxRB.WhenPressed(command_IntakeMode(&m_intake));
+
+   xboxYDrive.WhenPressed( command_ZeroGyro(&m_Drive) );
+   xboxRB.WhenPressed(command_IntakeMode(&m_intake));
+   xboxLB.WhenPressed( command_SwapOrientation(&m_Drive));
+   xboxA.WhenPressed(command_shoot(&m_turret));
+   xboxB.WhenPressed(command_endShoot(&m_turret));
+
+
 
 }
 
@@ -68,16 +64,4 @@ void RobotContainer::ConfigureButtonBindings() {
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return &m_autonomousCommand;
-=======
-     frc2::JoystickButton xboxA(&controller, ControllerConstants::xboxA);
-     frc2::JoystickButton xboxB(&controller, ControllerConstants::xboxB);
-
-     xboxA.WhenPressed(command_shoot(&m_turret));
-     xboxB.WhenPressed(command_endShoot(&m_turret));
-}
-
-frc2::Command* RobotContainer::GetAutonomousCommand() {
-  // An example command will be run in autonomous
-  return &m_AimToTargetWithLimelight;
->>>>>>> 830c8a3b024988a2022382f75788fd1b8d545366
 }

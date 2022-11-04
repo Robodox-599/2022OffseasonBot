@@ -20,9 +20,9 @@ void command_IntakeRun::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void command_IntakeRun::Execute() {
 
-  if(m_intake->isIntakeDeployed())
+  if(m_intake->isIntakeDeployed()  )
   {
-    m_intake->setIntakeWheelsOn(m_outputPower());
+    m_intake->setIntakeWheelsOn(0.5 *m_outputPower());
     printf("Intake wheels on \n");
   }
 
