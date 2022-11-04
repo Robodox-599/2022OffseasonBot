@@ -13,11 +13,19 @@ command_shoot::command_shoot(subsystem_Turret *shooter) : m_shooter{shooter} {
 
 // Called when the command is initially scheduled.
 void command_shoot::Initialize() {
+<<<<<<< HEAD
 	// // m_shooter->startShootAtExitVelocity();
   // printf("******COMMMAND INITIALIZE");
   // m_shooter->hoodTest(0);
   // printf("******COMMMAND INITIALIZE AFTER HOOD");
 	// m_shooter->shootTest();
+=======
+	// m_shooter->startShootAtExitVelocity();
+  printf("******COMMMAND INITIALIZE");
+  m_shooter->hoodTest(7);
+  printf("******COMMMAND INITIALIZE AFTER HOOD");
+	m_shooter->shootTest(0.7);
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
 	// frc::SmartDashboard::PutNumber("Shoot Speed:", m_shooter->getShootSpeed());
 }
 

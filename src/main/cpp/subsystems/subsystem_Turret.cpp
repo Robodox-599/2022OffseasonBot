@@ -95,6 +95,7 @@ m_HoodPID.SetP(ShooterConstants::kHoodP);
 // }
 
 void subsystem_Turret::hoodTest(double pos){
+<<<<<<< HEAD
         m_HoodPID.SetReference(hoodTestPosition, rev::ControlType::kPosition);
 }
 
@@ -102,6 +103,15 @@ void subsystem_Turret::shootTest(double percent){
         m_FlywheelMotor1.Set(ControlMode::Velocity, percent);
         // m_FlywheelMotor2.Set(ControlMode::PercentOutput, percent);
         printf("********SHOOT TEST  %f",shooterTestVelocity );
+=======
+        m_HoodPID.SetReference(pos, rev::ControlType::kPosition);
+}
+
+void subsystem_Turret::shootTest(double percent){
+        m_FlywheelMotor1.Set(ControlMode::PercentOutput, percent);
+        // m_FlywheelMotor2.Set(ControlMode::PercentOutput, percent);
+        printf("********SHOOT TEST  %f",percent );
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
 }
 
 void subsystem_Turret::setHoodAngle() {
@@ -165,7 +175,10 @@ void subsystem_Turret::shootAlternate() {
 
 void subsystem_Turret::endShooter() {
 	m_FlywheelMotor1.Set(ControlMode::PercentOutput, 0.0);
+<<<<<<< HEAD
     m_HoodPID.SetReference(0.0,rev::ControlType::kPosition);
+=======
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
 }
 
 double subsystem_Turret::findExitAngle(){
@@ -316,6 +329,7 @@ void subsystem_Turret::Periodic() {
     m_tvert = m_table_ptr->GetNumber("tvert", 0.0);
     m_getpipe = m_table_ptr->GetNumber("tgetpipe", 0.0);
     m_camtran = m_table_ptr->GetNumber("camtran", 0.0);
+<<<<<<< HEAD
     // frc::SmartDashboard::SmartDashboard::PutNumber("FlyWheel 1 Speed", m_FlywheelMotor1.GetMotorOutputPercent());
     // frc::SmartDashboard::SmartDashboard::PutNumber("FlyWheel 2 Speed", m_FlywheelMotor2.GetMotorOutputPercent());
     angleToGoalDegrees = ShooterConstants::limelightMountAngleDegrees + m_ty;
@@ -331,6 +345,14 @@ void subsystem_Turret::Periodic() {
     shooterTestVelocity = frc::SmartDashboard::SmartDashboard::GetNumber("Flywheel Velocity", 0.0);
 
   frc::SmartDashboard::SmartDashboard::PutNumber("Current Hood Pos:", m_HoodEncoder.GetPosition());
+=======
+    frc::SmartDashboard::SmartDashboard::PutNumber("FlyWheel 1 Speed", m_FlywheelMotor1.GetMotorOutputPercent());
+    frc::SmartDashboard::SmartDashboard::PutNumber("FlyWheel 2 Speed", m_FlywheelMotor2.GetMotorOutputPercent());
+    angleToGoalDegrees = ShooterConstants::limelightMountAngleDegrees + m_ty;
+    angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+    xDistanceLimelightToGoal = (deltaHeight)/tan(angleToGoalRadians); 
+    frc::SmartDashboard::SmartDashboard::PutNumber("Distance To Goal (INCHES):", xDistanceLimelightToGoal);
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
 
 
     // distance from the target to the floor

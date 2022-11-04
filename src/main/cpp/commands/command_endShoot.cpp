@@ -14,7 +14,7 @@ void command_endShoot::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void command_endShoot::Execute() {
-  m_shooter->endShooter();
+  m_shooter->shootTest(0.0);
   frc::SmartDashboard::PutNumber("Hood Position", m_shooter->getHoodPosition());
 }
 

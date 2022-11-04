@@ -14,7 +14,11 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
                                                        [this]{return XboxDrive.GetRawAxis(ControllerConstants::xboxRXAxis);},
                                                        [this]{return SwerveConstants::IsFieldRelative;},
                                                        [this]{return SwerveConstants::IsOpenLoop;}));
+<<<<<<< HEAD
    m_intake.SetDefaultCommand(command_IntakeRun(&m_intake, [this] {return XboxDrive.GetRawAxis(ControllerConstants::xboxRTAxis) - XboxDrive.GetRawAxis(ControllerConstants::xboxLTAxis); } ));
+=======
+   m_intake.SetDefaultCommand(command_IntakeRun(&m_intake, [this] {return XboxDrive.GetRawAxis(ControllerConstants::xboxLTAxis) - XboxDrive.GetRawAxis(ControllerConstants::xboxRTAxis); } ));
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
   // m_turret.SetDefaultCommand(command_AimToTargetWithLimelight(&m_turret));
 
   // Configure the button bindings
@@ -28,7 +32,10 @@ void RobotContainer::ConfigureButtonBindings() {
    frc2::JoystickButton xboxX(&XboxYaperator, ControllerConstants::xboxX);
    frc2::JoystickButton xboxY(&XboxYaperator, ControllerConstants::xboxY);
    frc2::JoystickButton xboxRB(&XboxDriveBttns, ControllerConstants::xboxRB);
+<<<<<<< HEAD
    frc2::JoystickButton xboxYDrive(&XboxDriveBttns, ControllerConstants::xboxY);
+=======
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
    frc2::JoystickButton xboxLBYaperator(&XboxYaperator, ControllerConstants::xboxLB);
    frc2::JoystickButton xboxRBYaperator(&XboxYaperator, ControllerConstants::xboxRB);
    frc2::JoystickButton xboxLB(&XboxDriveBttns, ControllerConstants::xboxLB);
@@ -38,18 +45,31 @@ void RobotContainer::ConfigureButtonBindings() {
 
   // // xboxStart.WhenPressed(command_Pico(&m_picoS));
    xboxY.WhenPressed(command_Motor(&m_motorS, [=]{return 0.0;}));
+<<<<<<< HEAD
    xboxLBYaperator.WhenPressed(command_Motor(&m_motorS, [=]{return -0.4;}));
    xboxRBYaperator.WhenPressed(command_Motor(&m_motorS, [=]{return 0.4;}));
+=======
+   xboxLBYaperator.WhenPressed(command_Motor(&m_motorS, [=]{return -0.2;}));
+   xboxRBYaperator.WhenPressed(command_Motor(&m_motorS, [=]{return 0.2;}));
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
   // // xboxStart.WhenPressed(command_Breakers(&m_breakersS, &m_motorS, &m_picoS));
   // // // xboxStart.WhenPressed(command_Pico(&m_picoS));
 
   
 
+<<<<<<< HEAD
    xboxYDrive.WhenPressed( command_ZeroGyro(&m_Drive) );
    xboxRB.WhenPressed(command_IntakeMode(&m_intake));
    xboxLB.WhenPressed( command_SwapOrientation(&m_Drive));
    xboxA.WhenPressed(command_shoot(&m_turret));
    xboxB.WhenPressed(command_endShoot(&m_turret));
+=======
+  // xboxLB.WhenPressed( command_ZeroGyro(&m_Drive) );
+   xboxRB.WhenPressed(command_IntakeMode(&m_intake));
+    xboxLB.WhenPressed( command_SwapOrientation(&m_Drive));
+   xboxA.WhenPressed(command_shoot(&m_turret));
+xboxB.WhenPressed(command_endShoot(&m_turret));
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
 
 
 

@@ -115,8 +115,13 @@ class subsystem_Turret : public frc2::SubsystemBase {
   rev::SparkMaxPIDController m_HoodPID;
   rev::SparkMaxPIDController m_TurretPID;
 
+<<<<<<< HEAD
   double hoodTestPosition;
   double shooterTestVelocity;
+=======
+  double hoodTestPosition = 7;
+  double shooterTestPercent = 20;
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
 
   double angleToGoalDegrees;
   double angleToGoalRadians;

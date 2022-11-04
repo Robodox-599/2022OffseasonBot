@@ -124,8 +124,13 @@ namespace SwerveConstants{
 
     /*Swerve Drive Current Limit Config*/
     constexpr bool DriveEnableCurrentLimit = true;
+<<<<<<< HEAD
     constexpr int DriveContinuousCurrentLimit = 20;
     constexpr int DrivePeakCurrentLimit = 40;
+=======
+    constexpr int DriveContinuousCurrentLimit = 30;
+    constexpr int DrivePeakCurrentLimit = 50;
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
     constexpr double DrivePeakCurrentDuration = 0.1;
 
 
@@ -237,6 +242,7 @@ namespace ShooterConstants {
   const double gravity = -9.806;
   const int kTimeoutMs = 30;
   
+<<<<<<< HEAD
   const double kHoodD = 0.08; // Derivative gain
   const double kHoodI = 0.0; // Integral gain
   const double kHoodP = 0.09; // Proportional gain
@@ -248,6 +254,21 @@ namespace ShooterConstants {
 
  
 
+=======
+  const double kHoodD = 0.0; // Derivative gain
+  const double kHoodI = 0.0; // Integral gain
+  const double kHoodP = 0.07; // Proportional gain
+
+  const double kFlywheelP = 0.1;
+  const double kFlywheelI = 0.0;
+  const double kFlywheelD = 0.0;
+  const double kFlywheelF = 0.3; 
+
+  const double kAimP = 0.15;
+  const double kAimI = 0.0;
+  const double kAimD = 0.0;
+
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
   constexpr static double kRotations = 0.02469136; 
   constexpr static double kHood = 0.03703704;
   constexpr static double kA = 0.02469136; 
@@ -265,7 +286,11 @@ namespace ShooterConstants {
   constexpr double limelightMountAngleDegrees = 59.0;
 
   // distance from the center of the Limelight lens to the floor
+<<<<<<< HEAD
   constexpr double limelightLensHeightInches = 44.23;
+=======
+  constexpr double limelightLensHeightInches = 46.6;
+>>>>>>> f630e81144ba866e3ed2705e672b98fdcaedf2de
 
   // distance from the target to the floor
   constexpr double goalHeightInches = 104.0;
